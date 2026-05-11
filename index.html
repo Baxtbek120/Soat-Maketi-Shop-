@@ -1,0 +1,3222 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart IT School — LMS Pro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--or:#FF5722;--or2:#FF7043;--orl:#FFF3F0;--bl:#2196F3;--gr:#4CAF50;--yl:#FFC107;--rd:#F44336;--pu:#9C27B0;--cy:#00BCD4;--bg:#F5F6FA;--wh:#FFFFFF;--tx:#1A1D23;--mu:#8892A4;--br:#E8ECF4;--sh:0 2px 12px rgba(0,0,0,.08);--shl:0 8px 32px rgba(0,0,0,.12)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+/* LOGIN */
+#loginPage{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fff5f2,#fff,#f0f4ff)}
+.lc{background:var(--wh);border-radius:20px;padding:40px 36px;width:380px;box-shadow:var(--shl)}
+.ll{text-align:center;margin-bottom:28px}
+.ll-icon{width:56px;height:56px;border-radius:14px;background:var(--or);display:inline-flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:10px}
+.ll h2{font-size:22px;font-weight:800}.ll h2 span{color:var(--or)}
+.ll p{font-size:13px;color:var(--mu);margin-top:4px}
+.fg{margin-bottom:14px}
+.fg label{font-size:11px;font-weight:700;color:var(--mu);display:block;margin-bottom:6px;letter-spacing:.5px}
+.pw{display:flex}
+.csel{padding:11px 10px;border:1.5px solid var(--br);border-right:none;border-radius:10px 0 0 10px;font-size:13px;background:var(--bg);cursor:pointer;color:var(--tx);outline:none}
+.fi{width:100%;padding:12px 14px;border:1.5px solid var(--br);border-radius:10px;font-size:14px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;background:var(--wh);color:var(--tx)}
+.pw .fi{border-radius:0 10px 10px 0}
+.fi:focus{border-color:var(--or)}
+.pwr{position:relative}.pwr .fi{padding-right:44px}
+.eyb{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--mu);font-size:16px}
+.lbtn{width:100%;padding:14px;background:var(--or);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:1px;margin-top:8px;transition:background .2s,transform .1s}
+.lbtn:hover{background:var(--or2)}.lbtn:active{transform:scale(.98)}
+.lerr{background:#FFF0EE;border:1px solid #FFCDD2;color:#C62828;border-radius:8px;padding:10px 14px;font-size:13px;margin-bottom:12px;display:none}
+.quick-logins{margin-top:16px;border-top:1px solid var(--br);padding-top:16px}
+.ql-title{font-size:11px;color:var(--mu);font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.ql-btns{display:flex;flex-wrap:wrap;gap:6px}
+.ql-btn{padding:5px 12px;border-radius:20px;border:1px solid var(--br);background:none;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;color:var(--tx)}
+.ql-btn:hover{border-color:var(--or);color:var(--or)}
+/* APP */
+#appPage{display:none;min-height:100vh}
+.al{display:flex;height:100vh;overflow:hidden}
+/* SIDEBAR */
+.sb{width:250px;background:var(--wh);border-right:1px solid var(--br);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;transition:width .2s}
+.sb.collapsed{width:60px}
+.sbl{padding:16px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:10px}
+.sbl-icon{width:36px;height:36px;background:var(--or);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0}
+.sbl-name{font-size:14px;font-weight:800;white-space:nowrap}.sbl-name span{color:var(--or)}
+.sbl-sub{font-size:10px;color:var(--mu)}
+.uib{margin:10px;padding:12px;background:var(--orl);border-radius:12px}
+.uib-role{font-size:10px;color:var(--or);font-weight:700;letter-spacing:1px}
+.uib-name{font-size:13px;font-weight:700;margin-top:2px}
+.uib-phone{font-size:11px;color:var(--mu);margin-top:1px}
+.ns{padding:8px 0}
+.nl{font-size:10px;color:var(--mu);font-weight:700;letter-spacing:1.5px;padding:6px 16px 4px}
+.ni{display:flex;align-items:center;gap:10px;padding:10px 16px;cursor:pointer;font-size:13px;color:var(--mu);transition:all .15s;border-left:3px solid transparent}
+.ni:hover{background:var(--bg);color:var(--tx)}
+.ni.active{background:var(--orl);color:var(--or);border-left-color:var(--or);font-weight:600}
+.ni .nic{font-size:16px;width:22px;text-align:center;flex-shrink:0}
+.ni .nib{margin-left:auto;background:var(--or);color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;font-weight:700}
+.sbb{margin-top:auto;padding:12px;border-top:1px solid var(--br)}
+.lgbtn{width:100%;padding:10px;background:none;border:1px solid var(--br);border-radius:8px;color:var(--mu);font-size:13px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s}
+.lgbtn:hover{border-color:var(--rd);color:var(--rd);background:#FFF5F5}
+/* MAIN */
+.mc{flex:1;overflow-y:auto;background:var(--bg)}
+.tb{background:var(--wh);border-bottom:1px solid var(--br);padding:14px 24px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:50}
+.tb-title{font-size:18px;font-weight:800;flex:1}
+.tb-actions{display:flex;align-items:center;gap:10px}
+.sync-pill{font-size:11px;font-weight:700;padding:6px 10px;border-radius:999px;background:#FFF3E0;color:#E65100;border:1px solid #FFE0B2}
+.sync-pill.ok{background:#E8F5E9;color:#2E7D32;border-color:#C8E6C9}
+.sync-pill.err{background:#FFEBEE;color:#C62828;border-color:#FFCDD2}
+.nb{width:36px;height:36px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;font-size:16px;position:relative}
+.nd{width:8px;height:8px;background:var(--rd);border-radius:50%;position:absolute;top:4px;right:4px;border:2px solid var(--wh)}
+.av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--or2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff;cursor:pointer}
+/* PAGES */
+.page{display:none;padding:24px}
+.page.active{display:block}
+/* STAT CARDS */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.sc{background:var(--wh);border-radius:14px;padding:20px;box-shadow:var(--sh);position:relative;overflow:hidden}
+.sc::before{content:'';position:absolute;right:-10px;top:-10px;width:70px;height:70px;border-radius:50%;opacity:.08}
+.sc.or::before{background:var(--or)}.sc.bl::before{background:var(--bl)}.sc.gr::before{background:var(--gr)}.sc.pu::before{background:var(--pu)}
+.sc-ic{font-size:28px;margin-bottom:8px}.sc-val{font-size:28px;font-weight:800}.sc-lbl{font-size:12px;color:var(--mu);margin-top:2px}
+.sc-tr{font-size:11px;margin-top:6px}.sc-tr.up{color:var(--gr)}.sc-tr.dn{color:var(--rd)}
+/* TABLE */
+.tc{background:var(--wh);border-radius:14px;box-shadow:var(--sh);overflow:hidden;margin-bottom:20px}
+.th2{padding:16px 20px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.th2 h3{font-size:15px;font-weight:700;flex:1}
+.si{padding:8px 14px;border:1.5px solid var(--br);border-radius:8px;font-size:13px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;width:200px}
+.si:focus{border-color:var(--or)}
+table{width:100%;border-collapse:collapse}
+th{padding:11px 16px;text-align:left;font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.5px;background:var(--bg);border-bottom:1px solid var(--br)}
+td{padding:12px 16px;font-size:13px;border-bottom:1px solid var(--br);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#FAFBFD}
+/* BADGES */
+.badge{display:inline-block;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600}
+.bg{background:#E8F5E9;color:#2E7D32}.bo{background:#FFF3E0;color:#E65100}.bb{background:#E3F2FD;color:#1565C0}.br2{background:#FFEBEE;color:#C62828}.bp{background:#F3E5F5;color:#6A1B9A}.bgr{background:#F5F5F5;color:#757575}.by{background:#FFFDE7;color:#F57F17}
+/* BUTTONS */
+.abt{padding:5px 12px;border-radius:6px;border:1.5px solid var(--br);background:none;font-size:12px;cursor:pointer;font-family:'Inter',sans-serif;transition:all .15s;margin-right:4px}
+.abt:hover{border-color:var(--or);color:var(--or)}
+.abt.dn:hover{border-color:var(--rd);color:var(--rd)}
+.addb{padding:8px 16px;background:var(--or);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:opacity .2s}
+.addb:hover{opacity:.88}
+.addb.bl{background:var(--bl)}.addb.gr{background:var(--gr)}.addb.pu{background:var(--pu)}
+/* COIN */
+.cb2{display:inline-flex;align-items:center;gap:4px;background:#FFF8E1;color:#F57F17;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
+/* MODAL */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:999}
+.mo.open{display:flex}
+.mod{background:var(--wh);border-radius:16px;padding:28px;width:520px;max-width:95vw;box-shadow:var(--shl);max-height:85vh;overflow-y:auto}
+.mod-title{font-size:17px;font-weight:800;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.mcl{margin-left:auto;background:none;border:none;font-size:22px;cursor:pointer;color:var(--mu);line-height:1}
+.mod .fg{margin-bottom:14px}
+.mda{display:flex;gap:10px;margin-top:20px}
+.mda .bp2{flex:1;padding:12px;background:var(--or);color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;transition:opacity .2s}
+.mda .bp2:hover{opacity:.88}
+.mda .bg2{padding:12px 20px;background:none;border:1.5px solid var(--br);border-radius:10px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;color:var(--mu)}
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--tx);color:#fff;padding:12px 20px;border-radius:10px;font-size:14px;z-index:9999;display:none;box-shadow:var(--shl);animation:su .3s ease}
+@keyframes su{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* PROGRESS */
+.pb{height:8px;background:var(--br);border-radius:4px;overflow:hidden}
+.pf{height:100%;background:var(--or);border-radius:4px}
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px}
+/* INFO CARD */
+.ic{background:var(--wh);border-radius:14px;padding:20px;box-shadow:var(--sh);margin-bottom:16px}
+.ir{display:flex;align-items:center;padding:9px 0;border-bottom:1px solid var(--br);font-size:14px}
+.ir:last-child{border-bottom:none}
+.ir .il{color:var(--mu);width:150px;flex-shrink:0;font-size:13px}
+.ir .iv{font-weight:500}
+/* SECTION TITLE */
+.st{font-size:16px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+/* TASK ITEM */
+.tsi{background:var(--wh);border-radius:12px;padding:16px 20px;border:1px solid var(--br);margin-bottom:10px;display:flex;align-items:center;gap:14px}
+.tsi-icon{font-size:24px}.tsi-body{flex:1}.tsi-title{font-size:14px;font-weight:600}.tsi-meta{font-size:12px;color:var(--mu);margin-top:2px}
+.tsi-acts{display:flex;gap:8px;align-items:center}
+/* PAY CARD */
+.pc{background:linear-gradient(135deg,var(--or),#FF8C00);border-radius:14px;padding:20px;color:#fff;margin-bottom:16px}
+.pc .pc-lbl{font-size:12px;opacity:.8}.pc .pc-val{font-size:32px;font-weight:800;margin:4px 0}
+/* HERO */
+.hero{background:linear-gradient(120deg,#1e293b,#0f172a 55%,#111827);color:#fff;border-radius:16px;padding:20px 22px;box-shadow:var(--shl);margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.hero h3{font-size:20px;font-weight:800;margin-bottom:6px}
+.hero p{font-size:13px;opacity:.85}
+.hero .hero-actions{display:flex;gap:8px;flex-wrap:wrap}
+.hero .hero-btn{padding:9px 12px;border-radius:9px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font-size:12px;font-weight:700;cursor:pointer}
+.hero .hero-btn:hover{background:rgba(255,255,255,.15)}
+/* CHAT */
+.cha{display:flex;flex-direction:column;height:calc(100vh - 120px)}
+.chm{flex:1;overflow-y:auto;padding:16px 0;display:flex;flex-direction:column;gap:12px}
+.cm{display:flex;gap:10px;max-width:650px}
+.cm.me{flex-direction:row-reverse;align-self:flex-end}
+.cav{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.cbbl{padding:11px 15px;border-radius:12px;font-size:14px;line-height:1.6;max-width:450px}
+.cm.other .cbbl{background:var(--wh);border:1px solid var(--br);border-radius:4px 12px 12px 12px}
+.cm.me .cbbl{background:var(--or);color:#fff;border-radius:12px 4px 12px 12px}
+.cir{display:flex;gap:10px;padding:14px;background:var(--wh);border-radius:14px;border:1px solid var(--br);margin-top:12px}
+.cir input{flex:1;border:none;outline:none;font-size:14px;font-family:'Inter',sans-serif;color:var(--tx);background:transparent}
+.cs{width:38px;height:38px;background:var(--or);border:none;border-radius:10px;cursor:pointer;font-size:16px;color:#fff;transition:opacity .2s}
+.cs:hover{opacity:.85}
+/* QUIZ */
+.qc{max-width:700px}
+.qhd{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.qn{font-family:monospace;font-size:12px;color:var(--mu)}
+.qpb{flex:1;height:8px;background:var(--br);border-radius:4px;overflow:hidden}
+.qpf{height:100%;background:var(--or);border-radius:4px;transition:width .3s}
+.qs{font-family:monospace;font-size:13px;color:var(--or)}
+.qq{font-size:18px;font-weight:700;margin-bottom:16px;line-height:1.5}
+.qcode{background:#1e1e2e;color:#a6e3a1;border-radius:10px;padding:16px;font-family:monospace;font-size:13px;line-height:1.7;margin-bottom:18px;white-space:pre-wrap}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.opt{padding:13px 16px;border-radius:10px;border:1.5px solid var(--br);cursor:pointer;font-size:14px;transition:all .15s;background:var(--wh)}
+.opt:hover{border-color:var(--or);color:var(--or)}
+.opt.ok{border-color:var(--gr);background:#E8F5E9;color:#2E7D32}
+.opt.ng{border-color:var(--rd);background:#FFEBEE;color:#C62828}
+.opt.sel{border-color:var(--or);background:var(--orl)}
+.fbx{padding:13px 16px;border-radius:8px;margin-bottom:16px;font-size:14px;display:none}
+.fbx.ok{background:#E8F5E9;border:1px solid #A5D6A7;color:#2E7D32}
+.fbx.ng{background:#FFEBEE;border:1px solid #EF9A9A;color:#C62828}
+/* LESSON BUILDER */
+.lb-card{background:var(--wh);border-radius:12px;padding:20px;border:1px solid var(--br);margin-bottom:12px}
+.lb-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.lb-num{width:32px;height:32px;border-radius:50%;background:var(--or);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0}
+.lb-title{font-size:15px;font-weight:700;flex:1}
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--bg);border-radius:10px;padding:4px;margin-bottom:20px;width:fit-content}
+.tab{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;color:var(--mu);transition:all .15s;border:none;background:none;font-family:'Inter',sans-serif}
+.tab.active{background:var(--wh);color:var(--tx);box-shadow:var(--sh)}
+/* STAR RATING */
+.stars{display:flex;gap:4px;font-size:20px;cursor:pointer}
+.star{color:var(--br);transition:color .15s}.star.on{color:var(--yl)}
+/* VIDEO CARD */
+.vc{background:var(--wh);border-radius:12px;overflow:hidden;border:1px solid var(--br);cursor:pointer;transition:transform .2s,box-shadow .2s}
+.vc:hover{transform:translateY(-3px);box-shadow:var(--shl)}
+.vthumb{height:120px;display:flex;align-items:center;justify-content:center;font-size:36px;position:relative}
+.vpill{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.7);color:#fff;font-size:11px;padding:2px 8px;border-radius:4px}
+.vbody{padding:14px}
+.vtitle{font-size:14px;font-weight:700;margin-bottom:4px}
+.vmeta{font-size:12px;color:var(--mu)}
+/* NOTIF */
+.nf-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--br);align-items:flex-start}
+.nf-item:last-child{border-bottom:none}
+.nf-ic{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.nf-body{flex:1}.nf-title{font-size:14px;font-weight:600}.nf-time{font-size:11px;color:var(--mu);margin-top:2px}
+.nf-dot{width:8px;height:8px;border-radius:50%;background:var(--or);margin-top:6px;flex-shrink:0}
+/* EMOJI PICKER */
+.ep{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.ep span{font-size:22px;cursor:pointer;padding:4px;border-radius:6px;transition:background .15s}
+.ep span:hover{background:var(--bg)}
+/* ENTERPRISE PANELS */
+.ekpi{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.ekpi .k{background:var(--wh);border:1px solid var(--br);border-radius:12px;padding:14px}
+.ekpi .k .n{font-size:11px;color:var(--mu);margin-bottom:4px}
+.ekpi .k .v{font-size:24px;font-weight:800}
+.ekpi .k .t{font-size:11px;margin-top:6px}
+.crm-board{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.crm-col{background:var(--wh);border:1px solid var(--br);border-radius:12px;min-height:260px;padding:10px}
+.crm-col h4{font-size:13px;margin-bottom:10px}
+.crm-card{background:#fff;border:1px solid var(--br);border-radius:10px;padding:10px;margin-bottom:8px}
+.crm-card .ttl{font-size:13px;font-weight:700}
+.crm-card .meta{font-size:11px;color:var(--mu);margin-top:4px}
+.crm-card .sum{font-size:12px;color:var(--or);font-weight:700;margin-top:6px}
+.xgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.xcard{background:var(--wh);border:1px solid var(--br);border-radius:12px;padding:16px}
+.xrow{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--br)}
+.xrow:last-child{border-bottom:none}
+.xname{font-size:13px}
+.xval{font-size:13px;font-weight:700}
+.lb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.lb-item{background:var(--wh);border:1px solid var(--br);border-radius:12px;padding:14px}
+.lb-item .cat{font-size:11px;color:var(--mu)}
+.lb-item .name{font-size:14px;font-weight:700;margin-top:4px}
+.lb-item .desc{font-size:12px;color:var(--mu);margin-top:6px;line-height:1.5}
+.lb-item .act{margin-top:10px;display:flex;gap:8px}
+.rm-tl{position:relative;padding-left:18px}
+.rm-tl::before{content:'';position:absolute;left:5px;top:0;bottom:0;width:2px;background:var(--br)}
+.rm-phase{position:relative;background:var(--wh);border:1px solid var(--br);border-radius:12px;padding:14px;margin-bottom:12px}
+.rm-phase::before{content:'';position:absolute;left:-17px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--or)}
+.rm-phase h4{font-size:14px}
+.rm-phase p{font-size:12px;color:var(--mu);margin-top:5px;line-height:1.5}
+.set-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.set-card{background:var(--wh);border:1px solid var(--br);border-radius:12px;padding:14px}
+.set-card h4{font-size:14px;margin-bottom:10px}
+.set-opt{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--br);font-size:13px}
+.set-opt:last-child{border-bottom:none}
+.chip{display:inline-flex;align-items:center;padding:4px 9px;border:1px solid var(--br);border-radius:999px;font-size:11px;background:#fff}
+.ai-box{background:#0f172a;color:#e2e8f0;border-radius:14px;padding:16px;margin-bottom:14px}
+.ai-box h4{color:#fff;margin-bottom:8px}
+.ai-prompt{display:grid;grid-template-columns:1fr auto;gap:10px}
+.ai-prompt input{padding:11px 12px;border-radius:10px;border:1px solid var(--br);font-size:13px}
+.ai-prompt button{padding:11px 14px;border:none;border-radius:10px;background:var(--or);color:#fff;font-weight:700;cursor:pointer}
+.ai-answer{margin-top:10px;background:#111827;border:1px solid #1f2937;padding:12px;border-radius:10px;font-size:13px;line-height:1.6}
+@media(max-width:768px){.sb{display:none}.sg{grid-template-columns:repeat(2,1fr)}.g2,.g3,.g4{grid-template-columns:1fr}.opts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<!-- LOGIN -->
+<div id="loginPage">
+  <div class="lc">
+    <div class="ll">
+      <div class="ll-icon">🎓</div>
+      <h2>Smart <span>IT</span> School</h2>
+      <p>Professional LMS Platform</p>
+    </div>
+    <div class="lerr" id="lerr" data-i18n="loginError">Telefon yoki parol noto'g'ri!</div>
+    <div class="fg"><label data-i18n="phone">TELEFON RAQAM</label>
+      <div class="pw"><select class="csel"><option>🇺🇿 +998</option></select>
+        <input class="fi" id="lph" type="tel" placeholder="XX XXX XX XX" maxlength="9" data-i18n="phonePlaceholder">
+      </div>
+    </div>
+    <div class="fg"><label data-i18n="password">PAROL</label>
+      <div class="pwr"><input class="fi" id="lps" type="password" placeholder="••••" data-i18n="passwordPlaceholder">
+        <button class="eyb" onclick="togglePass()">👁</button>
+      </div>
+    </div>
+    <button class="lbtn" onclick="doLogin()" data-i18n="loginButton">KIRISH →</button>
+    <div class="fg"><label data-i18n="language">TIL</label>
+      <select class="fi" id="langSelect" onchange="setLanguage(this.value)">
+        <option value="uz">O'zbekcha</option>
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+    <div class="quick-logins">
+      <div class="ql-title" data-i18n="quickLogin">TEZKOR KIRISH</div>
+      <div class="ql-btns">
+        <button class="ql-btn" onclick="ql('998993212141','5441')">👑 Direktor</button>
+        <button class="ql-btn" onclick="ql('998993725257','2141')">👨‍🏫 Mentor</button>
+        <button class="ql-btn" onclick="ql('998993212124','2141')">🎓 O'quvchi</button>
+        <button class="ql-btn" onclick="ql('998999999999','2141')">👥 Kurator</button>
+        <button class="ql-btn" onclick="ql('998995525792','2141')">🎧 Support</button>
+        <button class="ql-btn" onclick="ql('998968892121','2141')">💰 Moliya</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="appPage">
+  <div class="al">
+    <aside class="sb" id="sidebar">
+      <div class="sbl">
+        <div class="sbl-icon">🎓</div>
+        <div><div class="sbl-name">Smart <span>IT</span></div><div class="sbl-sub">LMS Platform</div></div>
+      </div>
+      <div class="uib">
+        <div class="uib-role" id="sr"></div>
+        <div class="uib-name" id="sn"></div>
+        <div class="uib-phone" id="sp"></div>
+      </div>
+      <div class="ns" id="navItems"></div>
+      <div class="sbb"><button class="lgbtn" onclick="doLogout()">🚪 Chiqish</button></div>
+    </aside>
+    <div class="mc">
+      <div class="tb">
+        <div class="tb-title" id="tbt">Bosh sahifa</div>
+        <div class="tb-actions">
+          <div class="sync-pill" id="syncStatus">SYNC...</div>
+        <select class="si" id="langSwitch" onchange="setLanguage(this.value)" style="width:110px">
+          <option value="uz">UZ</option>
+          <option value="ru">RU</option>
+          <option value="en">EN</option>
+        </select>
+        <button class="nb" onclick="showNotifs()">🔔<div class="nd"></div></button>
+        <div class="av" id="tav">A</div>
+        </div>
+      </div>
+      <div id="pw"></div>
+    </div>
+  </div>
+</div>
+
+<div class="mo" id="modal"><div class="mod" id="modBody"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+// DATA
+// ══════════════════════════════════════
+const API_BASE='http://localhost:4000/api';
+const LOCAL_FALLBACK_KEY='smartit-lms-local-state-v2';
+const LANGS=['uz','ru','en'];
+let activeLang='uz';
+const i18n={
+  uz: {phone:'TELEFON RAQAM',phonePlaceholder:'XX XXX XX XX',password:'PAROL',passwordPlaceholder:'••••',loginButton:'KIRISH →',quickLogin:'TEZKOR KIRISH',language:'TIL',loginError:'Telefon yoki parol noto‘g‘ri!'},
+  ru: {phone:'ТЕЛЕФОН',phonePlaceholder:'XX XXX XX XX',password:'ПАРОЛЬ',passwordPlaceholder:'••••',loginButton:'ВОЙТИ →',quickLogin:'БЫСТРЫЙ ВХОД',language:'ЯЗЫК',loginError:'Неверный телефон или пароль!'},
+  en: {phone:'PHONE NUMBER',phonePlaceholder:'XX XXX XX XX',password:'PASSWORD',passwordPlaceholder:'••••',loginButton:'LOGIN →',quickLogin:'QUICK LOGIN',language:'LANGUAGE',loginError:'Phone or password is incorrect!'}
+};
+
+function t(key){return (i18n[activeLang]&&i18n[activeLang][key])||i18n.uz[key]||key;}
+function setLanguage(lang){if(!LANGS.includes(lang))return;activeLang=lang;const sel=document.getElementById('langSelect');const top=document.getElementById('langSwitch');if(sel)sel.value=lang;if(top)top.value=lang;translateUI();showToast(`🌐 ${lang.toUpperCase()} mode`);}
+function translateUI(){document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(!key)return; if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=t(key);} else {el.textContent=t(key);}});} 
+
+let USERS={
+  '998993725257':{pass:'2141',role:'mentor',name:'Mentor Ustoz',group:'Python Guruh'},
+  '998993212124':{pass:'2141',role:'student',name:'Jalgashev Batxbek',group:'Python Guruh',coins:120},
+  '998999999999':{pass:'2141',role:'kurator',name:'Kurator',group:'Python Guruh'},
+  '998995525792':{pass:'2141',role:'support',name:'Support Mentor',group:''},
+  '998968892121':{pass:'2141',role:'moliya',name:'Moliya Bo\'limi',group:''},
+  '998993212141':{pass:'5441',role:'direktor',name:'Direktor',group:''},
+};
+
+let students=[
+  {id:1,name:'Jalgashev Batxbek',phone:'+998993212124',group:'Python Guruh',mentor:'Mentor Ustoz',coins:120,progress:65,status:'active',paid:true,rating:4},
+  {id:2,name:'Aliyev Jasur',phone:'+998901234567',group:'Python Guruh',mentor:'Mentor Ustoz',coins:80,progress:45,status:'active',paid:false,rating:3},
+  {id:3,name:'Karimova Malika',phone:'+998912345678',group:'Web Dev',mentor:'Mentor Ustoz',coins:200,progress:80,status:'active',paid:true,rating:5},
+  {id:4,name:'Toshmatov Sardor',phone:'+998923456789',group:'Python Guruh',mentor:'Mentor Ustoz',coins:50,progress:20,status:'inactive',paid:false,rating:2},
+  {id:5,name:'Yusupova Dilnoza',phone:'+998934567890',group:'Web Dev',mentor:'Mentor Ustoz',coins:160,progress:70,status:'active',paid:true,rating:4},
+];
+
+let courses=[
+  {id:1,name:'Python Asoslari',desc:'O\'zgaruvchilar, shartlar, tsikllar, funksiyalar',icon:'🐍',color:'#2196F3',group:'Python Guruh',lessons:36,duration:'72 soat',level:'Boshlang\'ich',price:'500 000',students:3,rating:4.8},
+  {id:2,name:'Web Dasturlash',desc:'HTML, CSS, JavaScript, Responsive dizayn',icon:'🌐',color:'#FF5722',group:'Web Dev',lessons:48,duration:'96 soat',level:'O\'rta',price:'600 000',students:2,rating:4.6},
+  {id:3,name:'React.js',desc:'Components, Hooks, Redux, API integratsiya',icon:'⚛️',color:'#9C27B0',group:'React',lessons:52,duration:'104 soat',level:'Ilg\'or',price:'700 000',students:0,rating:4.9},
+  {id:4,name:'Django Backend',desc:'Models, Views, REST API, PostgreSQL',icon:'🎯',color:'#4CAF50',group:'Django',lessons:44,duration:'88 soat',level:'O\'rta',price:'650 000',students:0,rating:4.7},
+];
+
+let lessons={
+  1:[
+    {id:1,title:'Python kirish va o\'rnatish',dur:'12:00',done:true,type:'video',url:''},
+    {id:2,title:'O\'zgaruvchilar va ma\'lumot turlari',dur:'18:30',done:true,type:'video',url:''},
+    {id:3,title:'Shartlar (if/else)',dur:'15:00',done:true,type:'video',url:''},
+    {id:4,title:'Tsikllar (for/while)',dur:'20:00',done:true,type:'video',url:''},
+    {id:5,title:'Funksiyalar',dur:'22:00',done:false,type:'video',url:''},
+    {id:6,title:'Ro\'yxatlar va lug\'atlar',dur:'19:00',done:false,type:'video',url:''},
+    {id:7,title:'Klasslar (OOP)',dur:'25:00',done:false,type:'video',url:''},
+    {id:8,title:'Fayllar bilan ishlash',dur:'14:00',done:false,type:'video',url:''},
+  ],
+  2:[
+    {id:1,title:'HTML asoslari',dur:'10:00',done:true,type:'video',url:''},
+    {id:2,title:'CSS uslublash',dur:'15:00',done:false,type:'video',url:''},
+    {id:3,title:'JavaScript kirish',dur:'20:00',done:false,type:'video',url:''},
+  ],
+};
+
+let tasks=[
+  {id:1,title:'Python — Funksiyalar topshirig\'i',group:'Python Guruh',deadline:'2025-04-20',status:'open',submissions:[
+    {student:'Jalgashev Batxbek',file:'task1.py',date:'2025-04-18',grade:null,comment:''},
+    {student:'Aliyev Jasur',file:'task1.py',date:'2025-04-19',grade:85,comment:'Yaxshi'},
+  ]},
+  {id:2,title:'HTML/CSS loyiha',group:'Web Dev',deadline:'2025-04-22',status:'open',submissions:[
+    {student:'Karimova Malika',file:'index.html',date:'2025-04-20',grade:null,comment:''},
+  ]},
+  {id:3,title:'OOP mashq',group:'Python Guruh',deadline:'2025-04-15',status:'closed',submissions:[
+    {student:'Jalgashev Batxbek',file:'oop.py',date:'2025-04-14',grade:90,comment:'Excellent!'},
+    {student:'Toshmatov Sardor',file:'oop.py',date:'2025-04-15',grade:60,comment:'Qaytadan'},
+  ]},
+];
+
+let quizzes=[
+  {id:1,title:'Python Asoslari Quiz',course:1,questions:[
+    {q:'Python da list nima?',code:null,opts:['Raqamlar to\'plami','Tartibli o\'zgaruvchan to\'plam','Lug\'at','Funksiya'],ans:1,exp:'List — tartibli, o\'zgaruvchan to\'plam'},
+    {q:'Bu kod nima chiqaradi?',code:'x = [1,2,3]\nprint(len(x))',opts:['1','2','3','Xato'],ans:2,exp:'len() funksiyasi list uzunligini qaytaradi'},
+    {q:'Funksiya qanday e\'lon qilinadi?',code:null,opts:['function salom():','def salom():','func salom():','void salom():'],ans:1,exp:'Python da funksiya def kalit so\'zi bilan e\'lon qilinadi'},
+    {q:'Bu kod necha marta "Salom" chiqaradi?',code:'for i in range(5):\n    print("Salom")',opts:['4','5','6','Cheksiz'],ans:1,exp:'range(5) — 0 dan 4 gacha, ya\'ni 5 marta'},
+  ]},
+  {id:2,title:'HTML/CSS Quiz',course:2,questions:[
+    {q:'HTML ning to\'liq nomi nima?',code:null,opts:['Hyper Text Markup Language','High Tech Modern Language','Hyper Transfer Markup Language','Home Tool Markup Language'],ans:0,exp:'HTML — HyperText Markup Language'},
+    {q:'CSS qaysi tegda yoziladi?',code:null,opts:['<script>','<css>','<style>','<link>'],ans:2,exp:'CSS <style> tegi ichida yoki alohida faylda yoziladi'},
+  ]},
+];
+
+let payments=[
+  {id:1,name:'Jalgashev Batxbek',amount:500000,date:'2025-04-01',status:'paid',group:'Python Guruh',method:'Naqd'},
+  {id:2,name:'Karimova Malika',amount:600000,date:'2025-04-02',status:'paid',group:'Web Dev',method:'Karta'},
+  {id:3,name:'Yusupova Dilnoza',amount:600000,date:'2025-04-03',status:'paid',group:'Web Dev',method:'Naqd'},
+  {id:4,name:'Aliyev Jasur',amount:500000,date:'',status:'pending',group:'Python Guruh',method:''},
+  {id:5,name:'Toshmatov Sardor',amount:500000,date:'',status:'pending',group:'Python Guruh',method:''},
+];
+
+let certificates=[
+  {id:1,student:'Jalgashev Batxbek',course:'Python Asoslari',status:'issued',date:'2025-04-20',grade:92},
+  {id:2,student:'Karimova Malika',course:'Web Dasturlash',status:'issued',date:'2025-04-22',grade:88},
+  {id:3,student:'Aliyev Jasur',course:'Python Asoslari',status:'pending',date:'',grade:null},
+];
+
+let chatMsgs=[
+  {from:'Mentor Ustoz',text:'Bugungi dars soat 15:00 da bo\'ladi! Tayyor bo\'ling 💪',time:'09:30',role:'mentor'},
+  {from:'Jalgashev Batxbek',text:'Tushunarli! Rahmat ustoz 🙏',time:'09:35',role:'student'},
+  {from:'Kurator',text:'Yangi o\'quvchi qo\'shildi: Yusupova Dilnoza',time:'10:00',role:'kurator'},
+  {from:'Support Mentor',text:'Amaliy topshiriq #1 tekshirildi, natijalar yuborildi',time:'11:15',role:'support'},
+];
+
+let announcements=[
+  {id:1,title:'Yangi modul boshlandi',body:'Python OOP moduli bugundan boshlanadi. Darslar soat 15:00 da.',author:'Mentor Ustoz',date:'2025-04-13',type:'info'},
+  {id:2,title:'To\'lov eslatmasi',body:'Aprel oyi to\'lovini amalga oshiring.',author:'Moliya Bo\'limi',date:'2025-04-10',type:'warning'},
+];
+
+let cu=null;
+let stateSyncTimer=null;
+let lastStateHash='';
+
+function setSyncStatus(txt,type){
+  const badge=document.getElementById('syncStatus');
+  if(!badge)return;
+  badge.textContent=txt;
+  badge.className='sync-pill'+(type?' '+type:'');
+}
+
+function collectState(){
+  return {USERS,students,courses,lessons,tasks,quizzes,payments,certificates,chatMsgs,announcements};
+}
+
+function applyState(data){
+  if(!data||typeof data!=='object')return;
+  if(data.USERS&&typeof data.USERS==='object')USERS=data.USERS;
+  if(Array.isArray(data.students))students=data.students;
+  if(Array.isArray(data.courses))courses=data.courses;
+  if(data.lessons&&typeof data.lessons==='object')lessons=data.lessons;
+  if(Array.isArray(data.tasks))tasks=data.tasks;
+  if(Array.isArray(data.quizzes))quizzes=data.quizzes;
+  if(Array.isArray(data.payments))payments=data.payments;
+  if(Array.isArray(data.certificates))certificates=data.certificates;
+  if(Array.isArray(data.chatMsgs))chatMsgs=data.chatMsgs;
+  if(Array.isArray(data.announcements))announcements=data.announcements;
+}
+
+async function loadInitialState(){
+  setSyncStatus('LOADING...','');
+  try{
+    const res=await fetch(`${API_BASE}/state`);
+    if(!res.ok)throw new Error('Server load failed');
+    const payload=await res.json();
+    if(payload&&payload.state)applyState(payload.state);
+    localStorage.setItem(LOCAL_FALLBACK_KEY,JSON.stringify(collectState()));
+    setSyncStatus('SERVER ON','ok');
+    return;
+  }catch(e){
+    const raw=localStorage.getItem(LOCAL_FALLBACK_KEY);
+    if(raw){
+      try{applyState(JSON.parse(raw));}catch(_){}
+      setSyncStatus('LOCAL MODE','');
+      return;
+    }
+    setSyncStatus('OFFLINE','err');
+  }
+}
+
+async function pushStateToServer(force=false){
+  const state=collectState();
+  const hash=JSON.stringify(state);
+  if(!force&&hash===lastStateHash)return;
+  lastStateHash=hash;
+  localStorage.setItem(LOCAL_FALLBACK_KEY,hash);
+  try{
+    const res=await fetch(`${API_BASE}/state`,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({state}),
+    });
+    if(!res.ok)throw new Error('save failed');
+    setSyncStatus('SYNCED','ok');
+  }catch(e){
+    setSyncStatus('LOCAL MODE','');
+  }
+}
+
+function startStateSync(){
+  if(stateSyncTimer)clearInterval(stateSyncTimer);
+  stateSyncTimer=setInterval(()=>{pushStateToServer(false)},4000);
+}
+
+// ══════════════════════════════════════
+// LOGIN
+// ══════════════════════════════════════
+function ql(ph,ps){document.getElementById('lph').value=ph.slice(3);document.getElementById('lps').value=ps;doLogin()}
+function doLogin(){
+  let ph=document.getElementById('lph').value.replace(/\s/g,'');
+  const ps=document.getElementById('lps').value;
+  if(!ph.startsWith('998'))ph='998'+ph;
+  const u=USERS[ph];
+  if(u&&u.pass===ps){
+    cu={...u,phone:ph};
+    document.getElementById('loginPage').style.display='none';
+    document.getElementById('appPage').style.display='block';
+    document.getElementById('lerr').style.display='none';
+    initApp();
+  }else{document.getElementById('lerr').style.display='block'}
+}
+document.getElementById('lps').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+document.getElementById('lph').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
+function togglePass(){const i=document.getElementById('lps');i.type=i.type==='password'?'text':'password'}
+function doLogout(){
+  cu=null;
+  if(stateSyncTimer){clearInterval(stateSyncTimer);stateSyncTimer=null;}
+  document.getElementById('loginPage').style.display='flex';
+  document.getElementById('appPage').style.display='none';
+  document.getElementById('lph').value='';
+  document.getElementById('lps').value='';
+}
+
+// ══════════════════════════════════════
+// APP INIT
+// ══════════════════════════════════════
+function initApp(){
+  document.getElementById('sr').textContent=roleLabel(cu.role);
+  document.getElementById('sn').textContent=cu.name;
+  document.getElementById('sp').textContent='+'+cu.phone;
+  document.getElementById('tav').textContent=cu.name[0].toUpperCase();
+  setLanguage(activeLang);
+  buildNav();
+  const pgs=getPages();
+  const wrap=document.getElementById('pw');
+  wrap.innerHTML='';
+  pgs.forEach(p=>{
+    const d=document.createElement('div');
+    d.className='page';d.id='pg-'+p.id;
+    wrap.appendChild(d);
+  });
+  showPage(pgs[0].id,pgs[0].label);
+  startStateSync();
+}
+
+function roleLabel(r){
+  return{mentor:'👨‍🏫 MENTOR',student:'🎓 O\'QUVCHI',kurator:'👥 KURATOR',support:'🎧 SUPPORT',moliya:'💰 MOLIYA',direktor:'👑 DIREKTOR'}[r]||r.toUpperCase();
+}
+
+function roleColor(r){
+  return{mentor:'#2196F3',kurator:'#9C27B0',support:'#4CAF50',moliya:'#FF9800',direktor:'#F44336',student:'#607D8B'}[r]||'#FF5722';
+}
+
+function dashHero(){
+  return `
+    <div class="hero">
+      <div>
+        <h3>Salom, ${cu.name} 👋</h3>
+        <p>Bugungi LMS holati real-time kuzatuvda. Tezkor amal orqali ishni davom ettiring.</p>
+      </div>
+      <div class="hero-actions">
+        <button class="hero-btn" onclick="showPage('announce','E\\'lonlar')">📢 E'lonlar</button>
+        <button class="hero-btn" onclick="showPage('chat','Chat')">💬 Chat</button>
+        <button class="hero-btn" onclick="showToast('✅ Bugungi aktivlik yaxshi!')">⚡ Aktivlik</button>
+      </div>
+    </div>
+  `;
+}
+
+// ══════════════════════════════════════
+// NAV
+// ══════════════════════════════════════
+function makeMenuGroup(prefix,icon,label,count,section='Qo\'shimcha'){
+  return Array.from({length:count},(_,i)=>({id:`${prefix}${i+1}`,icon,label:`${label} ${i+1}`,section}));
+}
+
+function getNavDef(){
+  const r=cu.role;
+  const map={
+    mentor:[
+      {id:'dashboard',icon:'🏠',label:'Bosh sahifa',section:'Asosiy'},
+      {id:'courses',icon:'📚',label:'Kurslar',section:'Asosiy'},
+      {id:'lessons',icon:'🎬',label:'Dars qo\'shish',section:'Asosiy'},
+      {id:'students',icon:'👨‍🎓',label:'O\'quvchilar',section:'Asosiy'},
+      {id:'crm',icon:'📈',label:'CRM',section:'Asosiy'},
+      {id:'tasks',icon:'📝',label:'Topshiriqlar',section:'Asosiy'},
+      {id:'quiz',icon:'🧩',label:'Quiz',section:'Asosiy'},
+      {id:'examcenter',icon:'🧠',label:'Exam Center',section:'Asosiy'},
+      {id:'library',icon:'📖',label:'Library',section:'Asosiy'},
+      {id:'coins',icon:'🪙',label:'Coinlar',section:'Asosiy'},
+      {id:'certificate',icon:'🎓',label:'Sertifikatlar',section:'Asosiy'},
+      {id:'compiler',icon:'🧪',label:'Kompilyator',section:'Asosiy'},
+      {id:'aiassist',icon:'🤖',label:'AI Assist',section:'Asosiy'},
+      {id:'roadmap',icon:'🗺️',label:'Roadmap',section:'Asosiy'},
+      {id:'announce',icon:'📢',label:'E\'lonlar',section:'Asosiy'},
+      {id:'chat',icon:'💬',label:'Chat',section:'Asosiy'},
+      ...makeMenuGroup('mentorMenu', '📌', 'Mentor Menu', 14, 'Qo\'shimcha'),
+      ...makeMenuGroup('mentorExtras', '📌', 'Mentor Extra', 16, 'Qo\'shimcha')
+    ],
+    student:[
+      {id:'dashboard',icon:'🏠',label:'Bosh sahifa'},
+      {id:'mycourses',icon:'📚',label:'Kurslarim'},
+      {id:'mylessons',icon:'🎬',label:'Darslar'},
+      {id:'mytasks',icon:'📝',label:'Topshiriqlar'},
+      {id:'myquiz',icon:'🧩',label:'Quiz'},
+      {id:'library',icon:'📖',label:'Library'},
+      {id:'mycoins',icon:'🪙',label:'Coinlarim'},
+      {id:'certificate',icon:'🎓',label:'Sertifikatlar'},
+      {id:'compiler',icon:'🧪',label:'Kompilyator'},
+      {id:'roadmap',icon:'🗺️',label:'Roadmap'},
+      {id:'announce',icon:'📢',label:'E\'lonlar'},
+      {id:'chat',icon:'💬',label:'Chat'},
+    ],
+    kurator:[
+      {id:'dashboard',icon:'🏠',label:'Bosh sahifa',section:'Asosiy'},
+      {id:'students',icon:'👨‍🎓',label:'O\'quvchilar',section:'Asosiy'},
+      {id:'attendance',icon:'📋',label:'Davomat',section:'Asosiy'},
+      {id:'crm',icon:'📈',label:'CRM',section:'Asosiy'},
+      {id:'examcenter',icon:'🧠',label:'Exam Center',section:'Asosiy'},
+      {id:'report',icon:'📊',label:'Hisobot',section:'Asosiy'},
+      {id:'certificate',icon:'🎓',label:'Sertifikatlar',section:'Asosiy'},
+      {id:'announce',icon:'📢',label:'E\'lonlar',section:'Asosiy'},
+      {id:'chat',icon:'💬',label:'Chat',section:'Asosiy'},
+      ...makeMenuGroup('kuratorMenu', '📌', 'Kurator Menu', 15, 'Qo\'shimcha'),
+      ...makeMenuGroup('kuratorExtras', '📌', 'Kurator Extra', 15, 'Qo\'shimcha')
+    ],
+    support:[
+      {id:'dashboard',icon:'🏠',label:'Bosh sahifa',section:'Asosiy'},
+      {id:'tasks',icon:'📝',label:'Amaliy tekshirish',section:'Asosiy'},
+      {id:'examcenter',icon:'🧠',label:'Exam Center',section:'Asosiy'},
+      {id:'library',icon:'📖',label:'Library',section:'Asosiy'},
+      {id:'report',icon:'📊',label:'Hisobot',section:'Asosiy'},
+      {id:'certificate',icon:'🎓',label:'Sertifikatlar',section:'Asosiy'},
+      {id:'announce',icon:'📢',label:'E\'lonlar',section:'Asosiy'},
+      {id:'chat',icon:'💬',label:'Chat',section:'Asosiy'},
+      ...makeMenuGroup('supportMenu', '📌', 'Support Menu', 15, 'Qo\'shimcha'),
+      ...makeMenuGroup('supportExtras', '📌', 'Support Extra', 15, 'Qo\'shimcha')
+    ],
+    moliya:[
+      {id:'dashboard',icon:'🏠',label:'Bosh sahifa',section:'Asosiy'},
+      {id:'payments',icon:'💳',label:'To\'lovlar',section:'Asosiy'},
+      {id:'crm',icon:'📈',label:'CRM',section:'Asosiy'},
+      {id:'report',icon:'📊',label:'Hisobot',section:'Asosiy'},
+      {id:'certificate',icon:'🎓',label:'Sertifikatlar',section:'Asosiy'},
+      {id:'settingspro',icon:'⚙️',label:'Settings Pro',section:'Asosiy'},
+      {id:'announce',icon:'📢',label:'E\'lonlar',section:'Asosiy'},
+      {id:'chat',icon:'💬',label:'Chat',section:'Asosiy'},
+      ...makeMenuGroup('moliyaMenu', '📌', 'Moliya Menu', 15, 'Qo\'shimcha'),
+      ...makeMenuGroup('moliyaExtras', '📌', 'Moliya Extra', 15, 'Qo\'shimcha')
+    ],
+    direktor:[
+      {id:'dashboard',icon:'🏠',label:'Bosh sahifa',section:'Asosiy'},
+      {id:'staff',icon:'👥',label:'Xodimlar',section:'Asosiy'},
+      {id:'students',icon:'👨‍🎓',label:'O\'quvchilar',section:'Asosiy'},
+      {id:'courses',icon:'📚',label:'Kurslar',section:'Asosiy'},
+      {id:'groups',icon:'🏫',label:'Guruhlar',section:'Asosiy'},
+      {id:'crm',icon:'📈',label:'CRM',section:'Asosiy'},
+      {id:'examcenter',icon:'🧠',label:'Exam Center',section:'Asosiy'},
+      {id:'library',icon:'📖',label:'Library',section:'Asosiy'},
+      {id:'payments',icon:'💳',label:'Moliya',section:'Asosiy'},
+      {id:'report',icon:'📊',label:'Hisobot',section:'Asosiy'},
+      {id:'certificate',icon:'🎓',label:'Sertifikatlar',section:'Asosiy'},
+      {id:'compiler',icon:'🧪',label:'Kompilyator',section:'Asosiy'},
+      {id:'roadmap',icon:'🗺️',label:'Roadmap',section:'Asosiy'},
+      {id:'aiassist',icon:'🤖',label:'AI Assist',section:'Asosiy'},
+      {id:'settingspro',icon:'⚙️',label:'Settings Pro',section:'Asosiy'},
+      {id:'announce',icon:'📢',label:'E\'lonlar',section:'Asosiy'},
+      {id:'chat',icon:'💬',label:'Chat',section:'Asosiy'},
+      ...makeMenuGroup('directorMenu', '📌', 'Direktor Menu', 30, 'Qo\'shimcha'),
+      ...makeMenuGroup('directorExtras', '📌', 'Direktor Extra', 24, 'Qo\'shimcha')
+    ],
+  };
+  return map[r]||[];
+}
+
+function buildNav(){
+  const items=getNavDef();
+  const wrap=document.getElementById('navItems');
+  wrap.innerHTML='';
+  const sections=[];
+  const grouped={};
+  items.forEach(item=>{
+    const section=item.section||'Asosiy';
+    if(!grouped[section]){grouped[section]=[];sections.push(section);}
+    grouped[section].push(item);
+  });
+  sections.forEach(section=>{
+    const header=document.createElement('div');
+    header.className='nav-section';
+    header.innerHTML=`<span>${section}</span><span class="sect-arrow">▼</span>`;
+    const list=document.createElement('div');
+    list.className='nav-group';
+    grouped[section].forEach(item=>{
+      const d=document.createElement('div');
+      d.className='ni';d.id='nav-'+item.id;
+      d.innerHTML=`<span class="nic">${item.icon}</span>${item.label}`;
+      d.onclick=()=>showPage(item.id,item.label);
+      list.appendChild(d);
+    });
+    header.addEventListener('click',()=>{
+      const collapsed=list.classList.toggle('collapsed');
+      header.querySelector('.sect-arrow').textContent=collapsed?'▶':'▼';
+    });
+    wrap.appendChild(header);
+    wrap.appendChild(list);
+  });
+}
+
+function getPages(){
+  const r=cu.role;
+  const pgs=[{id:'dashboard',label:'Bosh sahifa'}];
+  if(r==='mentor'){pgs.push({id:'courses',label:'Kurslar'},{id:'lessons',label:'Dars qo\'shish'},{id:'students',label:'O\'quvchilar'},{id:'crm',label:'CRM'},{id:'tasks',label:'Topshiriqlar'},{id:'quiz',label:'Quiz'},{id:'examcenter',label:'Exam Center'},{id:'library',label:'Library'},{id:'coins',label:'Coinlar'},{id:'certificate',label:'Sertifikatlar'},{id:'compiler',label:'Kompilyator'},{id:'aiassist',label:'AI Assist'},{id:'announce',label:'E\'lonlar'},{id:'roadmap',label:'Roadmap'},{id:'chat',label:'Chat'})}
+  if(r==='student'){pgs.push({id:'mycourses',label:'Kurslarim'},{id:'mylessons',label:'Darslar'},{id:'mytasks',label:'Topshiriqlar'},{id:'myquiz',label:'Quiz'},{id:'library',label:'Library'},{id:'mycoins',label:'Coinlarim'},{id:'certificate',label:'Sertifikatlar'},{id:'compiler',label:'Kompilyator'},{id:'roadmap',label:'Roadmap'},{id:'announce',label:'E\'lonlar'},{id:'chat',label:'Chat'})}
+  if(r==='kurator'){pgs.push({id:'students',label:'O\'quvchilar'},{id:'attendance',label:'Davomat'},{id:'crm',label:'CRM'},{id:'examcenter',label:'Exam Center'},{id:'report',label:'Hisobot'},{id:'certificate',label:'Sertifikatlar'},{id:'announce',label:'E\'lonlar'},{id:'chat',label:'Chat'})}
+  if(r==='support'){pgs.push({id:'tasks',label:'Amaliy tekshirish'},{id:'examcenter',label:'Exam Center'},{id:'library',label:'Library'},{id:'report',label:'Hisobot'},{id:'certificate',label:'Sertifikatlar'},{id:'announce',label:'E\'lonlar'},{id:'chat',label:'Chat'})}
+  if(r==='moliya'){pgs.push({id:'payments',label:'To\'lovlar'},{id:'crm',label:'CRM'},{id:'report',label:'Hisobot'},{id:'certificate',label:'Sertifikatlar'},{id:'settingspro',label:'Settings Pro'})}
+  if(r==='direktor'){pgs.push({id:'staff',label:'Xodimlar'},{id:'students',label:'O\'quvchilar'},{id:'courses',label:'Kurslar'},{id:'groups',label:'Guruhlar'},{id:'crm',label:'CRM'},{id:'examcenter',label:'Exam Center'},{id:'library',label:'Library'},{id:'payments',label:'Moliya'},{id:'report',label:'Hisobot'},{id:'certificate',label:'Sertifikatlar'},{id:'compiler',label:'Kompilyator'},{id:'roadmap',label:'Roadmap'},{id:'aiassist',label:'AI Assist'},{id:'settingspro',label:'Settings Pro'},{id:'announce',label:'E\'lonlar'},{id:'chat',label:'Chat'})}
+  return pgs;
+}
+
+function showPage(id,label){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  let pg=document.getElementById('pg-'+id);
+  if(!pg){
+    pg=document.createElement('div');
+    pg.className='page';
+    pg.id='pg-'+id;
+    document.getElementById('pw').appendChild(pg);
+  }
+  pg.classList.add('active');
+  pg.innerHTML=renderPage(id);
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  const ni=document.getElementById('nav-'+id);
+  if(ni)ni.classList.add('active');
+  document.getElementById('tbt').textContent=label||id;
+  if(id==='chat'||id.includes('chat'))setTimeout(()=>{const m=document.getElementById('chm');if(m)m.scrollTop=m.scrollHeight},50);
+}
+
+function renderPage(id){
+  const map={
+    dashboard:pageDash,
+    courses:pageCourses,
+    lessons:pageLessons,
+    students:pageStudents,
+    tasks:pageTasks,
+    quiz:pageQuizManage,
+    coins:pageCoins,
+    announce:pageAnnounce,
+    chat:pageChat,
+    mycourses:pageMyCourses,
+    mylessons:pageMyLessons,
+    mytasks:pageMyTasks,
+    myquiz:()=>pageQuizPlay(1),
+    mycoins:pageMyCoins,
+    attendance:pageAttendance,
+    payments:pagePayments,
+    report:pageReport,
+    staff:pageStaff,
+    groups:pageGroups,
+    crm:pageCRM,
+    examcenter:pageExamCenter,
+    library:pageLibrary,
+    roadmap:pageRoadmap,
+    aiassist:pageAIAssist,
+    settingspro:pageSettingsPro,
+    certificate:pageCertificates,
+    compiler:pageCompiler,
+  };
+  const pageFn = map[id] || (() => pageGeneric(id));
+  return pageFn();
+}
+
+// ══════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════
+function pageDash(){
+  const r=cu.role;
+  if(r==='mentor') return `
+    ${dashHero()}
+    <div class="sg">
+      <div class="sc or"><div class="sc-ic">👨‍🎓</div><div class="sc-val">${students.length}</div><div class="sc-lbl">Jami o'quvchilar</div><div class="sc-tr up">↑ 2 bu hafta</div></div>
+      <div class="sc bl"><div class="sc-ic">📝</div><div class="sc-val">${tasks.length}</div><div class="sc-lbl">Topshiriqlar</div><div class="sc-tr up">↑ 1 yangi</div></div>
+      <div class="sc gr"><div class="sc-ic">🧩</div><div class="sc-val">${quizzes.length}</div><div class="sc-lbl">Quiz'lar</div></div>
+      <div class="sc pu"><div class="sc-ic">📚</div><div class="sc-val">${courses.length}</div><div class="sc-lbl">Kurslar</div></div>
+    </div>
+    <div class="g2">
+      <div>
+        <div class="st">📢 So'nggi e'lonlar</div>
+        ${announcements.map(a=>`<div class="tsi"><div class="tsi-icon">${a.type==='info'?'ℹ️':'⚠️'}</div><div class="tsi-body"><div class="tsi-title">${a.title}</div><div class="tsi-meta">${a.author} · ${a.date}</div></div></div>`).join('')}
+      </div>
+      <div>
+        <div class="st">👨‍🎓 So'nggi o'quvchilar</div>
+        ${students.slice(0,4).map(s=>`<div class="tsi">
+          <div class="tsi-icon">👤</div>
+          <div class="tsi-body"><div class="tsi-title">${s.name}</div><div class="tsi-meta">${s.group} · ${s.progress}% progress</div></div>
+          <span class="badge ${s.status==='active'?'bg':'bgr'}">${s.status==='active'?'Faol':'Nofaol'}</span>
+        </div>`).join('')}
+      </div>
+    </div>`;
+
+  if(r==='student'){
+    const s=students.find(x=>x.phone==='+'+cu.phone)||students[0];
+    return `
+      ${dashHero()}
+      <div class="sg">
+        <div class="sc or"><div class="sc-ic">🪙</div><div class="sc-val">${s.coins}</div><div class="sc-lbl">Coinlar</div></div>
+        <div class="sc bl"><div class="sc-ic">📊</div><div class="sc-val">${s.progress}%</div><div class="sc-lbl">Progress</div></div>
+        <div class="sc gr"><div class="sc-ic">✅</div><div class="sc-val">${tasks.filter(t=>t.submissions.some(sb=>sb.student===s.name&&sb.grade)).length}</div><div class="sc-lbl">Baholangan</div></div>
+        <div class="sc pu"><div class="sc-ic">🔥</div><div class="sc-val">7</div><div class="sc-lbl">Kunlik seriya</div></div>
+      </div>
+      <div class="g2">
+        <div class="ic">
+          <div class="st">📊 Umumiy progress</div>
+          <div style="font-size:36px;font-weight:800;color:var(--or)">${s.progress}%</div>
+          <div class="pb" style="margin-top:10px"><div class="pf" style="width:${s.progress}%"></div></div>
+          <div style="font-size:12px;color:var(--mu);margin-top:6px">${s.group} · ${s.mentor}</div>
+        </div>
+        <div class="ic">
+          <div class="st">💳 To'lov holati</div>
+          <div class="ir"><span class="il">Holat</span><span class="iv"><span class="badge ${s.paid?'bg':'br2'}">${s.paid?'✅ To\'langan':'⏳ Kutilmoqda'}</span></span></div>
+          <div class="ir"><span class="il">Guruh</span><span class="iv">${s.group}</span></div>
+          <div class="ir"><span class="il">Mentor</span><span class="iv">${s.mentor}</span></div>
+          <div class="ir"><span class="il">Rating</span><span class="iv">${'⭐'.repeat(s.rating)}</span></div>
+        </div>
+      </div>
+      <div class="st">📢 E'lonlar</div>
+      ${announcements.map(a=>`<div class="tsi"><div class="tsi-icon">${a.type==='info'?'ℹ️':'⚠️'}</div><div class="tsi-body"><div class="tsi-title">${a.title}</div><div class="tsi-meta">${a.body}</div></div></div>`).join('')}`;
+  }
+
+  if(r==='kurator') return `
+    ${dashHero()}
+    <div class="sg">
+      <div class="sc or"><div class="sc-ic">👨‍🎓</div><div class="sc-val">${students.length}</div><div class="sc-lbl">O'quvchilar</div></div>
+      <div class="sc gr"><div class="sc-ic">✅</div><div class="sc-val">${students.filter(s=>s.status==='active').length}</div><div class="sc-lbl">Faol</div></div>
+      <div class="sc bl"><div class="sc-ic">📋</div><div class="sc-val">95%</div><div class="sc-lbl">Davomat</div></div>
+      <div class="sc pu"><div class="sc-ic">💳</div><div class="sc-val">${payments.filter(p=>p.status==='pending').length}</div><div class="sc-lbl">Qarzdorlar</div></div>
+    </div>
+    <div class="st">👨‍🎓 O'quvchilar</div>
+    ${buildStudTbl(students)}`;
+
+  if(r==='support') return `
+    ${dashHero()}
+    <div class="sg">
+      <div class="sc or"><div class="sc-ic">📝</div><div class="sc-val">${tasks.length}</div><div class="sc-lbl">Jami topshiriqlar</div></div>
+      <div class="sc bl"><div class="sc-ic">⏳</div><div class="sc-val">${tasks.reduce((a,t)=>a+t.submissions.filter(s=>!s.grade).length,0)}</div><div class="sc-lbl">Tekshirilmagan</div></div>
+      <div class="sc gr"><div class="sc-ic">✅</div><div class="sc-val">${tasks.reduce((a,t)=>a+t.submissions.filter(s=>s.grade).length,0)}</div><div class="sc-lbl">Baholangan</div></div>
+      <div class="sc pu"><div class="sc-ic">📨</div><div class="sc-val">${tasks.reduce((a,t)=>a+t.submissions.length,0)}</div><div class="sc-lbl">Jami javoblar</div></div>
+    </div>
+    ${pageTasksHtml()}`;
+
+  if(r==='moliya') return `
+    ${dashHero()}
+    <div class="pc"><div class="pc-lbl">Jami tushumlar (bu oy)</div><div class="pc-val">${(payments.filter(p=>p.status==='paid').reduce((a,p)=>a+p.amount,0)).toLocaleString()} so'm</div><div style="font-size:13px;opacity:.8">${payments.filter(p=>p.status==='paid').length} ta to'langan · ${payments.filter(p=>p.status==='pending').length} ta kutilmoqda</div></div>
+    <div class="sg">
+      <div class="sc gr"><div class="sc-ic">💰</div><div class="sc-val">${payments.filter(p=>p.status==='paid').length}</div><div class="sc-lbl">To'langan</div></div>
+      <div class="sc bl"><div class="sc-ic">⏳</div><div class="sc-val">${payments.filter(p=>p.status==='pending').length}</div><div class="sc-lbl">Kutilmoqda</div></div>
+      <div class="sc or"><div class="sc-ic">👨‍🎓</div><div class="sc-val">${students.length}</div><div class="sc-lbl">Jami o'quvchi</div></div>
+      <div class="sc pu"><div class="sc-ic">📊</div><div class="sc-val">${Math.round(payments.filter(p=>p.status==='paid').length/payments.length*100)}%</div><div class="sc-lbl">To'lov foizi</div></div>
+    </div>
+    ${buildPayTbl()}`;
+
+  if(r==='direktor') return `
+    ${dashHero()}
+    <div class="sg">
+      <div class="sc or"><div class="sc-ic">👨‍🎓</div><div class="sc-val">${students.length}</div><div class="sc-lbl">O'quvchilar</div></div>
+      <div class="sc bl"><div class="sc-ic">📚</div><div class="sc-val">${courses.length}</div><div class="sc-lbl">Kurslar</div></div>
+      <div class="sc gr"><div class="sc-ic">💰</div><div class="sc-val">${(payments.filter(p=>p.status==='paid').reduce((a,p)=>a+p.amount,0)/1000000).toFixed(1)}M</div><div class="sc-lbl">Daromad (so'm)</div></div>
+      <div class="sc pu"><div class="sc-ic">👥</div><div class="sc-val">6</div><div class="sc-lbl">Xodimlar</div></div>
+    </div>
+    <div class="g2">
+      <div><div class="st">👨‍🎓 O'quvchilar</div>${buildStudTbl(students.slice(0,3))}</div>
+      <div><div class="st">💳 To'lovlar</div>${buildPayTbl(3)}</div>
+    </div>`;
+
+  return '<div style="padding:40px;text-align:center">Loading...</div>';
+}
+
+// ══════════════════════════════════════
+// COURSES
+// ══════════════════════════════════════
+function pageCourses(){return `
+  <div class="th2" style="background:var(--wh);border-radius:14px;padding:16px 20px;margin-bottom:20px;box-shadow:var(--sh)">
+    <h3>📚 Kurslar</h3>
+    <button class="addb" onclick="addCourseModal()">+ Kurs qo'shish</button>
+  </div>
+  <div class="g4">${courses.map(c=>`
+    <div class="ic" style="border-top:4px solid ${c.color};cursor:pointer" onclick="viewCourse(${c.id})">
+      <div style="font-size:40px;text-align:center;margin-bottom:12px">${c.icon}</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px">${c.name}</div>
+      <div style="font-size:12px;color:var(--mu);margin-bottom:12px">${c.desc}</div>
+      <div class="ir"><span class="il">Darslar</span><span class="iv">${c.lessons} ta</span></div>
+      <div class="ir"><span class="il">Davomiylik</span><span class="iv">${c.duration}</span></div>
+      <div class="ir"><span class="il">Daraja</span><span class="iv"><span class="badge bb">${c.level}</span></span></div>
+      <div class="ir"><span class="il">Narx</span><span class="iv" style="color:var(--or);font-weight:700">${c.price} so'm</span></div>
+      <div class="ir"><span class="il">O'quvchilar</span><span class="iv">${c.students} nafar</span></div>
+      <div style="display:flex;gap:6px;margin-top:12px">
+        <button class="abt" onclick="event.stopPropagation();editCourseModal(${c.id})">✏️ Tahrir</button>
+        <button class="abt dn" onclick="event.stopPropagation();delCourse(${c.id})">🗑️</button>
+      </div>
+    </div>`).join('')}
+  </div>
+`;}
+
+function pageMyCourses(){return `
+  <div class="g4">${courses.map(c=>`
+    <div class="ic" style="border-top:4px solid ${c.color};cursor:pointer" onclick="showPage('mylessons','Darslar')">
+      <div style="font-size:40px;text-align:center;margin-bottom:12px">${c.icon}</div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px">${c.name}</div>
+      <div style="font-size:12px;color:var(--mu);margin-bottom:10px">${c.desc}</div>
+      <div class="pb"><div class="pf" style="width:${c.id===1?65:c.id===2?30:0}%"></div></div>
+      <div style="font-size:12px;color:var(--mu);margin-top:4px">${c.id===1?'65%':c.id===2?'30%':'Boshlanmagan'}</div>
+      <div style="margin-top:12px">
+        <button class="addb" style="width:100%;padding:8px">▶ Davom etish</button>
+      </div>
+    </div>`).join('')}
+  </div>
+`;}
+
+function addCourseModal(){
+  openModal('📚 Yangi Kurs',`
+    <div class="g2">
+      <div class="fg"><label>KURS NOMI</label><input class="fi" id="cn" placeholder="Python Asoslari"></div>
+      <div class="fg"><label>GURUH</label><select class="fi" id="cgr"><option>Python Guruh</option><option>Web Dev</option><option>React</option><option>Django</option></select></div>
+    </div>
+    <div class="fg"><label>TAVSIF</label><textarea class="fi" id="cd" rows="2" placeholder="Kurs haqida qisqacha..."></textarea></div>
+    <div class="g2">
+      <div class="fg"><label>NARX (so'm)</label><input class="fi" id="cpr" type="number" placeholder="500000"></div>
+      <div class="fg"><label>DARAJA</label><select class="fi" id="clv"><option>Boshlang'ich</option><option>O'rta</option><option>Ilg'or</option></select></div>
+    </div>
+    <div class="g2">
+      <div class="fg"><label>DARSLAR SONI</label><input class="fi" id="cln" type="number" placeholder="36"></div>
+      <div class="fg"><label>DAVOMIYLIK</label><input class="fi" id="cdur" placeholder="72 soat"></div>
+    </div>
+    <div class="fg"><label>IKONKA (emoji)</label><input class="fi" id="cion" placeholder="🐍" maxlength="2"></div>
+    <div class="mda"><button class="bp2" onclick="saveCourse()">✅ Saqlash</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveCourse(){
+  const name=document.getElementById('cn').value;
+  if(!name){showToast('❌ Nom kiriting!');return}
+  courses.push({id:Date.now(),name,desc:document.getElementById('cd').value,icon:document.getElementById('cion').value||'📚',color:'#'+Math.floor(Math.random()*16777215).toString(16),group:document.getElementById('cgr').value,lessons:+document.getElementById('cln').value||0,duration:document.getElementById('cdur').value,level:document.getElementById('clv').value,price:document.getElementById('cpr').value||'0',students:0,rating:0});
+  closeModal();showToast('✅ Kurs qo\'shildi!');showPage('courses','Kurslar');
+}
+
+function editCourseModal(id){
+  const c=courses.find(x=>x.id===id);
+  openModal(`✏️ Tahrirlash — ${c.name}`,`
+    <div class="fg"><label>KURS NOMI</label><input class="fi" id="en" value="${c.name}"></div>
+    <div class="fg"><label>TAVSIF</label><textarea class="fi" id="ed" rows="2">${c.desc}</textarea></div>
+    <div class="fg"><label>NARX</label><input class="fi" id="ep" value="${c.price}"></div>
+    <div class="mda"><button class="bp2" onclick="updateCourse(${id})">✅ Saqlash</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function updateCourse(id){
+  const c=courses.find(x=>x.id===id);
+  c.name=document.getElementById('en').value;
+  c.desc=document.getElementById('ed').value;
+  c.price=document.getElementById('ep').value;
+  closeModal();showToast('✅ Yangilandi!');showPage('courses','Kurslar');
+}
+
+function delCourse(id){
+  if(confirm('Kursni o\'chirishni tasdiqlaysizmi?')){courses=courses.filter(x=>x.id!==id);showToast('🗑️ O\'chirildi');showPage('courses','Kurslar')}
+}
+
+function viewCourse(id){
+  const c=courses.find(x=>x.id===id);
+  openModal(`📚 ${c.name}`,`
+    <div style="text-align:center;font-size:56px;margin-bottom:12px">${c.icon}</div>
+    <div class="ir"><span class="il">Guruh</span><span class="iv">${c.group}</span></div>
+    <div class="ir"><span class="il">Daraja</span><span class="iv">${c.level}</span></div>
+    <div class="ir"><span class="il">Darslar</span><span class="iv">${c.lessons} ta</span></div>
+    <div class="ir"><span class="il">Davomiylik</span><span class="iv">${c.duration}</span></div>
+    <div class="ir"><span class="il">Narx</span><span class="iv" style="color:var(--or);font-weight:700">${c.price} so'm</span></div>
+    <div class="ir"><span class="il">O'quvchilar</span><span class="iv">${c.students} nafar</span></div>
+    <div class="ir"><span class="il">Reyting</span><span class="iv">⭐ ${c.rating}</span></div>
+    <div class="mda"><button class="bp2" onclick="closeModal();showPage('lessons','Dars qo\\'shish')">🎬 Darslar</button><button class="bg2" onclick="closeModal()">Yopish</button></div>
+  `);
+}
+
+// ══════════════════════════════════════
+// LESSONS
+// ══════════════════════════════════════
+function pageLessons(){return `
+  <div class="g2">
+    <div>
+      <div class="th2" style="background:var(--wh);border-radius:14px;padding:16px 20px;margin-bottom:16px;box-shadow:var(--sh)">
+        <h3>🎬 Darslar</h3>
+        <select class="fi" style="width:140px" id="lsCourse" onchange="refreshLessons()">${courses.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}</select>
+        <button class="addb" onclick="addLessonModal()">+ Dars</button>
+      </div>
+      <div id="lessonList">${buildLessonList(1)}</div>
+    </div>
+    <div>
+      <div class="ic">
+        <div class="st">📹 Video qo'shish</div>
+        <div class="fg"><label>YOUTUBE LINK</label><input class="fi" id="ytLink" placeholder="https://youtube.com/watch?v=..."></div>
+        <div class="fg"><label>DARS NOMI</label><input class="fi" id="ytTitle" placeholder="Dars nomi..."></div>
+        <button class="addb" style="width:100%" onclick="addYT()">▶ Qo'shish</button>
+      </div>
+      <div class="ic">
+        <div class="st">📝 Dars matni</div>
+        <div class="fg"><label>SARLAVHA</label><input class="fi" id="txtTitle" placeholder="Dars sarlavhasi"></div>
+        <div class="fg"><label>MATN</label><textarea class="fi" id="txtBody" rows="5" placeholder="Dars matni..."></textarea></div>
+        <button class="addb bl" style="width:100%;margin-top:4px" onclick="addTextLesson()">📄 Saqlash</button>
+      </div>
+    </div>
+  </div>
+`;}
+
+function buildLessonList(cId){
+  const ls=lessons[cId]||[];
+  if(!ls.length)return '<div style="padding:20px;text-align:center;color:var(--mu)">Darslar yo\'q</div>';
+  return ls.map((l,i)=>`
+    <div class="lb-card">
+      <div class="lb-top">
+        <div class="lb-num">${i+1}</div>
+        <div class="lb-title">${l.title}</div>
+        <span class="badge ${l.type==='video'?'bb':'bg'}">${l.type==='video'?'📹':'📄'}</span>
+        <button class="abt dn" onclick="delLesson(${cId},${l.id})">🗑️</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:12px;color:var(--mu)">⏱ ${l.dur}</span>
+        <span class="badge ${l.done?'bg':'bgr'}">${l.done?'Tugatildi':'Jarayonda'}</span>
+        ${l.url?`<a href="${l.url}" target="_blank" style="font-size:12px;color:var(--bl)">▶ Ko'rish</a>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function refreshLessons(){
+  const cId=+document.getElementById('lsCourse').value;
+  document.getElementById('lessonList').innerHTML=buildLessonList(cId);
+}
+
+function addLessonModal(){
+  openModal('🎬 Yangi Dars',`
+    <div class="fg"><label>DARS NOMI</label><input class="fi" id="ltn" placeholder="Dars nomi"></div>
+    <div class="g2">
+      <div class="fg"><label>DAVOMIYLIGI</label><input class="fi" id="ltd" placeholder="15:00"></div>
+      <div class="fg"><label>TURI</label><select class="fi" id="ltt"><option value="video">📹 Video</option><option value="text">📄 Matn</option></select></div>
+    </div>
+    <div class="fg"><label>LINK (ixtiyoriy)</label><input class="fi" id="ltu" placeholder="https://youtube.com/..."></div>
+    <div class="mda"><button class="bp2" onclick="saveLesson()">✅ Qo'shish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveLesson(){
+  const title=document.getElementById('ltn').value;
+  if(!title){showToast('❌ Nom kiriting!');return}
+  const cId=1;
+  if(!lessons[cId])lessons[cId]=[];
+  lessons[cId].push({id:Date.now(),title,dur:document.getElementById('ltd').value||'00:00',done:false,type:document.getElementById('ltt').value,url:document.getElementById('ltu').value});
+  closeModal();showToast('✅ Dars qo\'shildi!');showPage('lessons','Dars qo\'shish');
+}
+
+function addYT(){
+  const url=document.getElementById('ytLink').value;
+  const title=document.getElementById('ytTitle').value||'Yangi dars';
+  if(!url){showToast('❌ Link kiriting!');return}
+  if(!lessons[1])lessons[1]=[];
+  lessons[1].push({id:Date.now(),title,dur:'00:00',done:false,type:'video',url});
+  document.getElementById('ytLink').value='';document.getElementById('ytTitle').value='';
+  showToast('✅ Dars qo\'shildi!');showPage('lessons','Dars qo\'shish');
+}
+
+function addTextLesson(){
+  const title=document.getElementById('txtTitle').value;
+  if(!title){showToast('❌ Sarlavha kiriting!');return}
+  if(!lessons[1])lessons[1]=[];
+  lessons[1].push({id:Date.now(),title,dur:'00:00',done:false,type:'text',url:''});
+  showToast('✅ Matn darsi qo\'shildi!');showPage('lessons','Dars qo\'shish');
+}
+
+function delLesson(cId,id){
+  if(confirm('Darsni o\'chirishni tasdiqlaysizmi?')){
+    lessons[cId]=lessons[cId].filter(l=>l.id!==id);
+    showToast('🗑️ O\'chirildi');refreshLessons();
+  }
+}
+
+function pageMyLessons(){
+  const cId=1;const ls=lessons[cId]||[];
+  return `<div class="st">🎬 Python Asoslari — Darslar</div>
+    ${ls.map((l,i)=>`<div class="tsi">
+      <div class="tsi-icon">${l.done?'✅':l.type==='video'?'📹':'📄'}</div>
+      <div class="tsi-body"><div class="tsi-title">${i+1}. ${l.title}</div><div class="tsi-meta">⏱ ${l.dur} · ${l.type==='video'?'Video dars':'Matn dars'}</div></div>
+      <div class="tsi-acts">
+        ${l.done?'<span class="badge bg">Ko\'rildi</span>':''}
+        ${l.url?`<button class="addb" onclick="window.open('${l.url}','_blank')">▶ Ko'rish</button>`:l.done?'':`<button class="addb" onclick="markLessonDone(${cId},${l.id})">✅ Tugatdim</button>`}
+      </div>
+    </div>`).join('')}`;
+}
+
+function markLessonDone(cId,id){
+  const l=lessons[cId]&&lessons[cId].find(x=>x.id===id);
+  if(l){l.done=true;showToast('✅ Dars tugatildi!');showPage('mylessons','Darslar')}
+}
+
+// ══════════════════════════════════════
+// STUDENTS
+// ══════════════════════════════════════
+function pageStudents(){return `
+  <div class="tc">
+    <div class="th2">
+      <h3>👨‍🎓 O'quvchilar</h3>
+      <input class="si" placeholder="Qidirish..." oninput="filterStudents(this.value)">
+      ${cu.role==='direktor'?`<button class="addb" onclick="addStudentModal()">+ Qo'shish</button>`:''}
+      <button class="addb bl" onclick="exportStudents()">📤 Export</button>
+    </div>
+    <div id="stu-wrap">${buildStudTbl(students)}</div>
+  </div>`;}
+
+function buildStudTbl(list){
+  return `<table><thead><tr><th>#</th><th>ISM FAMILIYA</th><th>TELEFON</th><th>GURUH</th><th>MENTOR</th><th>COIN</th><th>PROGRESS</th><th>TO'LOV</th><th>HOLAT</th><th>AMALLAR</th></tr></thead>
+  <tbody>${list.map((s,i)=>`<tr>
+    <td style="color:var(--mu)">${i+1}</td>
+    <td><strong>${s.name}</strong></td>
+    <td>${s.phone}</td><td>${s.group}</td><td>${s.mentor}</td>
+    <td><span class="cb2">🪙 ${s.coins}</span></td>
+    <td><div style="display:flex;align-items:center;gap:8px"><div class="pb" style="width:80px"><div class="pf" style="width:${s.progress}%"></div></div><span style="font-size:12px;color:var(--mu)">${s.progress}%</span></div></td>
+    <td><span class="badge ${s.paid?'bg':'br2'}">${s.paid?'✅':'❌'}</span></td>
+    <td><span class="badge ${s.status==='active'?'bg':'bgr'}">${s.status==='active'?'Faol':'Nofaol'}</span></td>
+    <td>
+      <button class="abt" onclick="viewStudent(${s.id})">👁</button>
+      ${cu.role==='mentor'?`<button class="abt" onclick="addCoinModal(${s.id})">🪙</button>`:''}
+      ${cu.role==='direktor'?`<button class="abt dn" onclick="delStudent(${s.id})">🗑️</button>`:''}
+    </td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+function filterStudents(q){
+  const list=students.filter(s=>s.name.toLowerCase().includes(q.toLowerCase())||s.phone.includes(q)||s.group.toLowerCase().includes(q.toLowerCase()));
+  const w=document.getElementById('stu-wrap');if(w)w.innerHTML=buildStudTbl(list);
+}
+
+function exportStudents(){
+  const csv="Ism,Telefon,Guruh,Coin,Progress,To'lov\n"+students.map(s=>`${s.name},${s.phone},${s.group},${s.coins},${s.progress}%,${s.paid?'Ha':'Yo\'q'}`).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download='oquvchilar.csv';a.click();
+  showToast('📤 Export qilindi!');
+}
+
+function viewStudent(id){
+  const s=students.find(x=>x.id===id);if(!s)return;
+  openModal(`👤 ${s.name}`,`
+    <div class="ir"><span class="il">Telefon</span><span class="iv">${s.phone}</span></div>
+    <div class="ir"><span class="il">Guruh</span><span class="iv">${s.group}</span></div>
+    <div class="ir"><span class="il">Mentor</span><span class="iv">${s.mentor}</span></div>
+    <div class="ir"><span class="il">Coinlar</span><span class="iv"><span class="cb2">🪙 ${s.coins}</span></span></div>
+    <div class="ir"><span class="il">Progress</span><span class="iv">${s.progress}%</span></div>
+    <div class="ir"><span class="il">To'lov</span><span class="iv"><span class="badge ${s.paid?'bg':'br2'}">${s.paid?'To\'langan':'Qarzdor'}</span></span></div>
+    <div class="ir"><span class="il">Reyting</span><span class="iv">${'⭐'.repeat(s.rating)}</span></div>
+    <div class="mda">
+      ${cu.role==='mentor'?`<button class="bp2" onclick="closeModal();addCoinModal(${id})">🪙 Coin</button>`:''}
+      <button class="bg2" onclick="closeModal()">Yopish</button>
+    </div>
+  `);
+}
+
+function addStudentModal(){
+  openModal('➕ Yangi O\'quvchi',`
+    <div class="g2">
+      <div class="fg"><label>ISM FAMILIYA</label><input class="fi" id="ns_n" placeholder="Ism Familiya"></div>
+      <div class="fg"><label>TELEFON</label><input class="fi" id="ns_p" placeholder="+998XXXXXXXXX"></div>
+    </div>
+    <div class="g2">
+      <div class="fg"><label>PAROL</label><input class="fi" id="ns_ps" placeholder="Parol" type="text"></div>
+      <div class="fg"><label>GURUH</label><select class="fi" id="ns_g">${courses.map(c=>`<option>${c.group}</option>`).join('')}</select></div>
+    </div>
+    <div class="mda"><button class="bp2" onclick="saveNewStudent()">✅ Saqlash</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveNewStudent(){
+  const name=document.getElementById('ns_n').value,phone=document.getElementById('ns_p').value;
+  if(!name||!phone){showToast('❌ Ma\'lumotlarni to\'ldiring!');return}
+  students.push({id:Date.now(),name,phone,group:document.getElementById('ns_g').value,mentor:'Mentor Ustoz',coins:0,progress:0,status:'active',paid:false,rating:0});
+  closeModal();showToast('✅ O\'quvchi qo\'shildi!');showPage('students','O\'quvchilar');
+}
+
+function delStudent(id){
+  if(confirm('O\'quvchini o\'chirishni tasdiqlaysizmi?')){students=students.filter(x=>x.id!==id);showToast('🗑️ O\'chirildi');showPage('students','O\'quvchilar')}
+}
+
+// ══════════════════════════════════════
+// TASKS
+// ══════════════════════════════════════
+function pageTasks(){return `
+  <div class="th2" style="background:var(--wh);border-radius:14px;padding:16px 20px;margin-bottom:20px;box-shadow:var(--sh)">
+    <h3>📝 Topshiriqlar</h3>
+    ${cu.role!=='support'?`<button class="addb" onclick="addTaskModal()">+ Yangi</button>`:''}
+  </div>
+  ${pageTasksHtml()}`;}
+
+function pageTasksHtml(){
+  return tasks.map(t=>`
+    <div class="ic">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700">${t.title}</div>
+          <div style="font-size:12px;color:var(--mu);margin-top:2px">📅 ${t.deadline} · ${t.group}</div>
+        </div>
+        <span class="badge ${t.status==='open'?'bo':'bg'}">${t.status==='open'?'Ochiq':'Yopilgan'}</span>
+        <span class="badge bb">📨 ${t.submissions.length}</span>
+      </div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:8px;color:var(--mu)">JAVOBLAR</div>
+      ${t.submissions.length?`<table style="font-size:13px"><thead><tr><th>O'QUVCHI</th><th>FAYL</th><th>SANA</th><th>BAHO</th><th>AMAL</th></tr></thead>
+      <tbody>${t.submissions.map(sb=>`<tr>
+        <td>${sb.student}</td>
+        <td>${sb.file}</td>
+        <td>${sb.date}</td>
+        <td>${sb.grade?`<span class="badge ${sb.grade>=80?'bg':sb.grade>=60?'by':'br2'}">${sb.grade}/100</span>`:'<span class="badge bgr">—</span>'}</td>
+        <td>${!sb.grade?`<button class="addb" style="padding:5px 10px;font-size:11px" onclick="gradeModal('${t.id}','${sb.student}')">Baholash</button>`:'<span style="font-size:12px;color:var(--gr)">✅</span>'}</td>
+      </tr>`).join('')}</tbody></table>`:'<div style="color:var(--mu);font-size:13px">Hali javob yo\'q</div>'}
+    </div>`).join('');
+}
+
+function addTaskModal(){
+  openModal('📝 Yangi Topshiriq',`
+    <div class="fg"><label>TOPSHIRIQ NOMI</label><input class="fi" id="tn" placeholder="Topshiriq nomi"></div>
+    <div class="g2">
+      <div class="fg"><label>GURUH</label><select class="fi" id="tg">${courses.map(c=>`<option>${c.group}</option>`).join('')}</select></div>
+      <div class="fg"><label>MUDDAT</label><input class="fi" id="td" type="date"></div>
+    </div>
+    <div class="fg"><label>TAVSIF</label><textarea class="fi" id="tdesc" rows="3" placeholder="Topshiriq tavsifi..."></textarea></div>
+    <div class="fg"><label>COIN MUKOFOTI</label><input class="fi" id="tcoin" type="number" placeholder="50"></div>
+    <div class="mda"><button class="bp2" onclick="saveTask()">✅ Yuborish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveTask(){
+  const title=document.getElementById('tn').value;
+  if(!title){showToast('❌ Nom kiriting!');return}
+  tasks.push({id:Date.now(),title,group:document.getElementById('tg').value,deadline:document.getElementById('td').value,status:'open',submissions:[]});
+  closeModal();showToast('✅ Topshiriq qo\'shildi!');showPage('tasks','Topshiriqlar');
+}
+
+function gradeModal(tId,student){
+  openModal(`📊 Baholash — ${student}`,`
+    <div class="fg"><label>BAHO (0-100)</label><input class="fi" id="gr" type="number" min="0" max="100" placeholder="85"></div>
+    <div class="fg"><label>IZOH</label><textarea class="fi" id="gc" rows="3" placeholder="Izoh..."></textarea></div>
+    <div class="mda"><button class="bp2" onclick="saveGrade('${tId}','${student}')">✅ Saqlash</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveGrade(tId,student){
+  const grade=+document.getElementById('gr').value;
+  const comment=document.getElementById('gc').value;
+  const task=tasks.find(t=>t.id==tId);
+  if(task){const sb=task.submissions.find(s=>s.student===student);if(sb){sb.grade=grade;sb.comment=comment}}
+  // add coins for good grade
+  if(grade>=70){const s=students.find(x=>x.name===student);if(s)s.coins+=Math.round(grade/10)}
+  closeModal();showToast(`✅ Baholandi! ${grade>=70?'🪙 Coin berildi!':''}`);showPage('tasks','Topshiriqlar');
+}
+
+function pageMyTasks(){return `
+  <div class="st">📝 Topshiriqlarim</div>
+  ${tasks.map(t=>{
+    const me=t.submissions.find(sb=>sb.student===cu.name);
+    return `<div class="tsi">
+      <div class="tsi-icon">${me?.grade?'✅':t.status==='open'?'📝':'⏰'}</div>
+      <div class="tsi-body">
+        <div class="tsi-title">${t.title}</div>
+        <div class="tsi-meta">📅 ${t.deadline} · ${t.group}</div>
+        ${me?.grade?`<div style="margin-top:4px"><span class="badge ${me.grade>=80?'bg':me.grade>=60?'by':'br2'}">${me.grade}/100</span> ${me.comment?`<span style="font-size:12px;color:var(--mu)">${me.comment}</span>`:''}</div>`:''}
+      </div>
+      <div class="tsi-acts">
+        ${!me&&t.status==='open'?`<button class="addb" onclick="submitTask(${t.id})">📤 Topshirish</button>`:''}
+        ${me&&!me.grade?`<span class="badge by">⏳ Tekshirilmoqda</span>`:''}
+      </div>
+    </div>`;
+  }).join('')}`;}
+
+function submitTask(id){
+  openModal('📤 Topshirish',`
+    <div class="fg"><label>FAYL NOMI (yoki link)</label><input class="fi" id="sf" placeholder="solution.py yoki github link"></div>
+    <div class="fg"><label>IZOH</label><textarea class="fi" id="sc" rows="3" placeholder="Izoh..."></textarea></div>
+    <div class="mda"><button class="bp2" onclick="doSubmit(${id})">✅ Yuborish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function doSubmit(id){
+  const file=document.getElementById('sf').value;
+  if(!file){showToast('❌ Fayl kiriting!');return}
+  const task=tasks.find(t=>t.id===id);
+  if(task)task.submissions.push({student:cu.name,file,date:new Date().toISOString().slice(0,10),grade:null,comment:''});
+  closeModal();showToast('✅ Topshiriq yuborildi!');showPage('mytasks','Topshiriqlar');
+}
+
+// ══════════════════════════════════════
+// QUIZ
+// ══════════════════════════════════════
+function pageQuizManage(){return `
+  <div class="th2" style="background:var(--wh);border-radius:14px;padding:16px 20px;margin-bottom:20px;box-shadow:var(--sh)">
+    <h3>🧩 Quiz Boshqaruvi</h3>
+    <button class="addb" onclick="addQuizModal()">+ Yangi Quiz</button>
+  </div>
+  ${quizzes.map(q=>`
+    <div class="ic">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700">${q.title}</div>
+          <div style="font-size:12px;color:var(--mu);margin-top:2px">📚 ${courses.find(c=>c.id===q.course)?.name} · ${q.questions.length} ta savol</div>
+        </div>
+        <button class="addb bl" onclick="addQuestionModal(${q.id})">+ Savol</button>
+        <button class="addb" onclick="previewQuiz(${q.id})">👁 Ko'rish</button>
+      </div>
+      <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+        ${q.questions.map((qst,i)=>`<span class="badge bb">Savol ${i+1}</span>`).join('')}
+      </div>
+    </div>`).join('')}`;}
+
+function addQuizModal(){
+  openModal('🧩 Yangi Quiz',`
+    <div class="fg"><label>QUIZ NOMI</label><input class="fi" id="qn" placeholder="Python Quiz 2"></div>
+    <div class="fg"><label>KURS</label><select class="fi" id="qc">${courses.map(c=>`<option value="${c.id}">${c.name}</option>`).join('')}</select></div>
+    <div class="mda"><button class="bp2" onclick="saveQuiz()">✅ Yaratish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveQuiz(){
+  const name=document.getElementById('qn').value;
+  if(!name){showToast('❌ Nom kiriting!');return}
+  quizzes.push({id:Date.now(),title:name,course:+document.getElementById('qc').value,questions:[]});
+  closeModal();showToast('✅ Quiz yaratildi!');showPage('quiz','Quiz');
+}
+
+function addQuestionModal(qId){
+  openModal('❓ Savol qo\'shish',`
+    <div class="fg"><label>SAVOL</label><textarea class="fi" id="qqt" rows="3" placeholder="Savol matni..."></textarea></div>
+    <div class="fg"><label>KOD (ixtiyoriy)</label><textarea class="fi" id="qqc" rows="3" placeholder="print('Hello')"></textarea></div>
+    <div class="st" style="margin-top:8px;margin-bottom:8px">Variantlar</div>
+    <div class="g2">
+      <div class="fg"><label>A VARIANT</label><input class="fi" id="qa" placeholder="Variant A"></div>
+      <div class="fg"><label>B VARIANT</label><input class="fi" id="qb" placeholder="Variant B"></div>
+      <div class="fg"><label>C VARIANT</label><input class="fi" id="qcc" placeholder="Variant C"></div>
+      <div class="fg"><label>D VARIANT</label><input class="fi" id="qd" placeholder="Variant D"></div>
+    </div>
+    <div class="fg"><label>TO'G'RI JAVOB</label><select class="fi" id="qans"><option value="0">A</option><option value="1">B</option><option value="2">C</option><option value="3">D</option></select></div>
+    <div class="fg"><label>IZOH (tushuntirish)</label><input class="fi" id="qex" placeholder="Bu to'g'ri chunki..."></div>
+    <div class="mda"><button class="bp2" onclick="saveQuestion(${qId})">✅ Qo'shish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveQuestion(qId){
+  const q=quizzes.find(x=>x.id===qId);
+  if(!q)return;
+  const qtext=document.getElementById('qqt').value;
+  if(!qtext){showToast('❌ Savol kiriting!');return}
+  q.questions.push({
+    q:qtext,
+    code:document.getElementById('qqc').value||null,
+    opts:[document.getElementById('qa').value,document.getElementById('qb').value,document.getElementById('qcc').value,document.getElementById('qd').value],
+    ans:+document.getElementById('qans').value,
+    exp:document.getElementById('qex').value
+  });
+  closeModal();showToast('✅ Savol qo\'shildi!');showPage('quiz','Quiz');
+}
+
+function previewQuiz(id){showPage('myquiz','Quiz');document.getElementById('pg-myquiz').innerHTML=pageQuizPlay(id)}
+
+// QUIZ PLAY
+let qzState={qi:0,score:0,answered:false,qId:1};
+function pageQuizPlay(qId=1){
+  const q=quizzes.find(x=>x.id===qId)||quizzes[0];
+  if(!q)return '<div style="padding:40px;text-align:center;color:var(--mu)">Quiz topilmadi</div>';
+  qzState={qi:0,score:0,answered:false,qId:q.id};
+  return `<div class="qc"><div id="qz-wrap">${renderQuestion()}</div></div>`;
+}
+
+function renderQuestion(){
+  const q=quizzes.find(x=>x.id===qzState.qId);
+  if(!q)return '';
+  if(qzState.qi>=q.questions.length)return renderQuizResult(q);
+  const qst=q.questions[qzState.qi];
+  const pct=Math.round((qzState.qi)/q.questions.length*100);
+  return `
+    <div class="qhd">
+      <span class="qn">${qzState.qi+1} / ${q.questions.length}</span>
+      <div class="qpb"><div class="qpf" style="width:${pct}%"></div></div>
+      <span class="qs">⭐ ${qzState.score} ball</span>
+    </div>
+    <div class="qq">${qst.q}</div>
+    ${qst.code?`<div class="qcode">${qst.code}</div>`:''}
+    <div class="fbx" id="qfb"></div>
+    <div class="opts">${qst.opts.map((o,i)=>`<div class="opt" id="opt${i}" onclick="checkAns(${i})">${String.fromCharCode(65+i)}. ${o}</div>`).join('')}</div>
+    <div id="qnxt"></div>`;
+}
+
+function checkAns(idx){
+  if(qzState.answered)return;
+  qzState.answered=true;
+  const q=quizzes.find(x=>x.id===qzState.qId);
+  const qst=q.questions[qzState.qi];
+  const fb=document.getElementById('qfb');
+  document.getElementById('opt'+qst.ans).classList.add('ok');
+  if(idx===qst.ans){qzState.score++;document.getElementById('opt'+idx).classList.add('ok');fb.className='fbx ok';fb.textContent='✅ To\'g\'ri! '+qst.exp;}
+  else{document.getElementById('opt'+idx).classList.add('ng');fb.className='fbx ng';fb.textContent='❌ Noto\'g\'ri. To\'g\'ri: '+qst.opts[qst.ans]+'. '+qst.exp;}
+  fb.style.display='block';
+  const q2=quizzes.find(x=>x.id===qzState.qId);
+  document.getElementById('qnxt').innerHTML=`<button class="addb" onclick="nextQ()" style="padding:12px 28px">${qzState.qi<q2.questions.length-1?'Keyingisi →':'🏆 Natija'}</button>`;
+}
+
+function nextQ(){
+  qzState.qi++;qzState.answered=false;
+  document.getElementById('qz-wrap').innerHTML=renderQuestion();
+}
+
+function renderQuizResult(q){
+  const pct=Math.round(qzState.score/q.questions.length*100);
+  const emoji=pct>=80?'🏆':pct>=60?'👍':'💪';
+  // add coins for student
+  if(cu.role==='student'&&pct>=60){const s=students.find(x=>x.name===cu.name);if(s){s.coins+=Math.round(pct/10);showToast(`🪙 +${Math.round(pct/10)} coin oldiniz!`)}}
+  return `<div style="text-align:center;padding:40px 20px">
+    <div style="font-size:64px;margin-bottom:16px">${emoji}</div>
+    <h2 style="font-size:28px;margin-bottom:8px">${qzState.score}/${q.questions.length} to'g'ri</h2>
+    <p style="color:var(--mu);margin-bottom:20px">Natija: <strong style="color:var(--or);font-size:20px">${pct}%</strong></p>
+    <div class="pb" style="max-width:300px;margin:0 auto 24px;height:14px"><div class="pf" style="width:${pct}%;height:100%;background:${pct>=80?'var(--gr)':pct>=60?'var(--yl)':'var(--rd)'}"></div></div>
+    ${pct>=60?`<div style="background:var(--orl);border-radius:10px;padding:14px;margin-bottom:20px;font-size:14px">🪙 +${Math.round(pct/10)} coin oldiniz!</div>`:''}
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button class="addb" onclick="document.getElementById('qz-wrap').innerHTML=pageQuizPlay(${q.id}).replace('<div class=\\'qc\\'>','').replace('</div>','');qzState={qi:0,score:0,answered:false,qId:${q.id}};document.getElementById('qz-wrap').innerHTML=renderQuestion()">🔄 Qayta</button>
+      <button class="addb bl" onclick="showPage('dashboard','Bosh sahifa')">🏠 Bosh sahifa</button>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════
+// COINS
+// ══════════════════════════════════════
+function pageCoins(){return `
+  <div class="tc">
+    <div class="th2"><h3>🪙 Coin Boshqaruvi</h3></div>
+    <table><thead><tr><th>O'QUVCHI</th><th>GURUH</th><th>COIN</th><th>AMALLAR</th></tr></thead>
+    <tbody>${students.map(s=>`<tr>
+      <td><strong>${s.name}</strong></td><td>${s.group}</td>
+      <td><span class="cb2">🪙 ${s.coins}</span></td>
+      <td>
+        <button class="addb gr" style="padding:5px 12px;font-size:12px" onclick="addCoinModal(${s.id})">+ Qo'shish</button>
+        <button class="addb" style="padding:5px 12px;font-size:12px;background:var(--rd)" onclick="removeCoinModal(${s.id})">- Ayirish</button>
+      </td>
+    </tr>`).join('')}</tbody></table>
+  </div>`;}
+
+function pageMyCoins(){
+  const s=students.find(x=>x.phone==='+'+cu.phone)||students[0];
+  return `
+    <div class="pc"><div class="pc-lbl">Mening Coinlarim</div><div class="pc-val">🪙 ${s.coins}</div><div style="font-size:13px;opacity:.8">Smart IT School</div></div>
+    <div class="ic">
+      <div class="st">📋 Coin tarixi</div>
+      <div class="ir"><span class="il">Topshiriq #1</span><span class="iv" style="color:var(--gr)">+30 🪙</span></div>
+      <div class="ir"><span class="il">Quiz (85%)</span><span class="iv" style="color:var(--gr)">+8 🪙</span></div>
+      <div class="ir"><span class="il">Topshiriq #2</span><span class="iv" style="color:var(--gr)">+50 🪙</span></div>
+      <div class="ir"><span class="il">Faollik bonus</span><span class="iv" style="color:var(--gr)">+32 🪙</span></div>
+      <div class="ir"><span class="il">Kechikish</span><span class="iv" style="color:var(--rd)">-10 🪙</span></div>
+      <div style="border-top:2px solid var(--br);margin-top:8px;padding-top:12px">
+        <div class="ir"><span class="il" style="font-weight:700">JAMI</span><span class="iv" style="font-size:18px;font-weight:800;color:var(--or)">🪙 ${s.coins}</span></div>
+      </div>
+    </div>`;
+}
+
+function addCoinModal(id){
+  const s=students.find(x=>x.id===id);
+  openModal(`🪙 Coin qo'shish — ${s.name}`,`
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:48px">🪙</div>
+      <div style="font-size:22px;font-weight:800">Hozirgi: ${s.coins} coin</div>
+    </div>
+    <div class="fg"><label>MIQDOR</label><input class="fi" id="ca" type="number" placeholder="50" min="1"></div>
+    <div class="fg"><label>SABAB</label>
+      <div class="ep">
+        <span onclick="document.getElementById('cr').value='Topshiriq uchun'">📝</span>
+        <span onclick="document.getElementById('cr').value='Faollik uchun'">⚡</span>
+        <span onclick="document.getElementById('cr').value='Quiz uchun'">🧩</span>
+        <span onclick="document.getElementById('cr').value='Bonus'">🎁</span>
+      </div>
+      <input class="fi" id="cr" placeholder="Sabab...">
+    </div>
+    <div class="mda"><button class="bp2" onclick="saveCoin(${id},true)">✅ Qo'shish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function removeCoinModal(id){
+  const s=students.find(x=>x.id===id);
+  openModal(`🪙 Coin ayirish — ${s.name}`,`
+    <div class="fg"><label>MIQDOR</label><input class="fi" id="ca" type="number" placeholder="10"></div>
+    <div class="fg"><label>SABAB</label><input class="fi" id="cr" placeholder="Kechikish uchun..."></div>
+    <div class="mda"><button class="bp2" style="background:var(--rd)" onclick="saveCoin(${id},false)">❌ Ayirish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveCoin(id,add){
+  const amt=parseInt(document.getElementById('ca').value)||0;
+  const s=students.find(x=>x.id===id);
+  s.coins=Math.max(0,s.coins+(add?amt:-amt));
+  closeModal();showToast(add?`✅ ${amt} coin qo'shildi!`:`❌ ${amt} coin ayirildi!`);
+  showPage('coins','Coinlar');
+}
+
+// ══════════════════════════════════════
+// ANNOUNCE
+// ══════════════════════════════════════
+function pageAnnounce(){return `
+  <div class="th2" style="background:var(--wh);border-radius:14px;padding:16px 20px;margin-bottom:20px;box-shadow:var(--sh)">
+    <h3>📢 E'lonlar</h3>
+    ${cu.role!=='student'?`<button class="addb" onclick="addAnnounceModal()">+ E'lon</button>`:''}
+  </div>
+  ${announcements.map(a=>`
+    <div class="ic" style="border-left:4px solid ${a.type==='info'?'var(--bl)':'var(--yl)'}">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <span style="font-size:22px">${a.type==='info'?'ℹ️':'⚠️'}</span>
+        <div style="flex:1"><div style="font-size:15px;font-weight:700">${a.title}</div><div style="font-size:12px;color:var(--mu)">${a.author} · ${a.date}</div></div>
+        ${cu.role!=='student'?`<button class="abt dn" onclick="delAnnounce(${a.id})">🗑️</button>`:''}
+      </div>
+      <div style="font-size:14px;color:var(--mu)">${a.body}</div>
+    </div>`).join('')}`;}
+
+function addAnnounceModal(){
+  openModal('📢 Yangi E\'lon',`
+    <div class="fg"><label>SARLAVHA</label><input class="fi" id="an" placeholder="E'lon sarlavhasi"></div>
+    <div class="fg"><label>MATN</label><textarea class="fi" id="ab" rows="4" placeholder="E'lon matni..."></textarea></div>
+    <div class="fg"><label>TURI</label><select class="fi" id="at"><option value="info">ℹ️ Ma'lumot</option><option value="warning">⚠️ Ogohlantirish</option></select></div>
+    <div class="mda"><button class="bp2" onclick="saveAnnounce()">✅ Yuborish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveAnnounce(){
+  const title=document.getElementById('an').value;
+  if(!title){showToast('❌ Sarlavha kiriting!');return}
+  announcements.unshift({id:Date.now(),title,body:document.getElementById('ab').value,author:cu.name,date:new Date().toISOString().slice(0,10),type:document.getElementById('at').value});
+  closeModal();showToast('✅ E\'lon yuborildi!');showPage('announce','E\'lonlar');
+}
+
+function delAnnounce(id){
+  announcements=announcements.filter(a=>a.id!==id);showToast('🗑️ O\'chirildi');showPage('announce','E\'lonlar');
+}
+
+// ══════════════════════════════════════
+// ATTENDANCE
+// ══════════════════════════════════════
+function pageAttendance(){return `
+  <div class="tc">
+    <div class="th2">
+      <h3>📋 Davomat</h3>
+      <select class="si"><option>Python Guruh</option><option>Web Dev</option></select>
+      <button class="addb" onclick="showToast('✅ Saqlandi!')">Saqlash</button>
+    </div>
+    <table><thead><tr><th>O'QUVCHI</th><th>Du</th><th>Se</th><th>Ch</th><th>Pa</th><th>Ju</th><th>JAMI</th><th>%</th></tr></thead>
+    <tbody>${students.map(s=>{
+      const days=[1,1,0,1,1];const cnt=days.filter(Boolean).length;
+      return `<tr><td><strong>${s.name}</strong></td>
+        ${days.map(v=>`<td><input type="checkbox" ${v?'checked':''} style="width:16px;height:16px;cursor:pointer"></td>`).join('')}
+        <td><span class="badge ${cnt>=4?'bg':cnt>=3?'by':'br2'}">${cnt}/5</span></td>
+        <td style="font-weight:600">${cnt*20}%</td>
+      </tr>`;}).join('')}</tbody></table>
+  </div>`;}
+
+// ══════════════════════════════════════
+// PAYMENTS
+// ══════════════════════════════════════
+function pagePayments(){return `
+  <div class="pc"><div class="pc-lbl">Jami tushum</div><div class="pc-val">${payments.filter(p=>p.status==='paid').reduce((a,p)=>a+p.amount,0).toLocaleString()} so'm</div><div style="font-size:13px;opacity:.8">${payments.filter(p=>p.status==='paid').length} to'langan · ${payments.filter(p=>p.status==='pending').length} kutilmoqda</div></div>
+  <div class="tc">
+    <div class="th2"><h3>💳 To'lovlar</h3><button class="addb" onclick="exportPayments()">📤 Export</button></div>
+    ${buildPayTbl()}
+  </div>`;}
+
+function buildPayTbl(limit){
+  const list=limit?payments.slice(0,limit):payments;
+  return `<table><thead><tr><th>O'QUVCHI</th><th>GURUH</th><th>SUMMA</th><th>USUL</th><th>SANA</th><th>HOLAT</th><th>AMAL</th></tr></thead>
+  <tbody>${list.map(p=>`<tr>
+    <td><strong>${p.name}</strong></td><td>${p.group}</td>
+    <td style="font-weight:700">${p.amount.toLocaleString()} so'm</td>
+    <td>${p.method||'—'}</td><td>${p.date||'—'}</td>
+    <td><span class="badge ${p.status==='paid'?'bg':'br2'}">${p.status==='paid'?'✅ To\'langan':'⏳ Kutilmoqda'}</span></td>
+    <td>${p.status==='pending'?`<button class="addb gr" style="padding:5px 10px;font-size:11px" onclick="markPaid(${p.id})">✅ Tasdiqlash</button>`:'—'}</td>
+  </tr>`).join('')}</tbody></table>`;
+}
+
+function markPaid(id){
+  openModal('💳 To\'lovni tasdiqlash',`
+    <div class="fg"><label>TO'LOV USULI</label><select class="fi" id="pm"><option>Naqd</option><option>Karta</option><option>Bank o'tkazmasi</option></select></div>
+    <div class="mda"><button class="bp2" onclick="confirmPay(${id})">✅ Tasdiqlash</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function confirmPay(id){
+  const p=payments.find(x=>x.id===id);
+  p.status='paid';p.date=new Date().toISOString().slice(0,10);p.method=document.getElementById('pm').value;
+  const s=students.find(x=>x.name===p.name);if(s)s.paid=true;
+  closeModal();showToast('✅ To\'lov tasdiqlandi!');showPage('payments','To\'lovlar');
+}
+
+function exportPayments(){
+  const csv="Ism,Guruh,Summa,Usul,Sana,Holat\n"+payments.map(p=>`${p.name},${p.group},${p.amount},${p.method||''},${p.date||''},${p.status==='paid'?'To\'langan':'Kutilmoqda'}`).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download='tolovlar.csv';a.click();
+  showToast('📤 Export qilindi!');
+}
+
+// ══════════════════════════════════════
+// REPORT
+// ══════════════════════════════════════
+function pageReport(){return `
+  <div class="sg">
+    <div class="sc gr"><div class="sc-ic">💰</div><div class="sc-val">${(payments.filter(p=>p.status==='paid').reduce((a,p)=>a+p.amount,0)/1000000).toFixed(2)}M</div><div class="sc-lbl">Tushum (so'm)</div></div>
+    <div class="sc or"><div class="sc-ic">👨‍🎓</div><div class="sc-val">${students.length}</div><div class="sc-lbl">O'quvchilar</div></div>
+    <div class="sc bl"><div class="sc-ic">📚</div><div class="sc-val">${courses.length}</div><div class="sc-lbl">Kurslar</div></div>
+    <div class="sc pu"><div class="sc-ic">🧩</div><div class="sc-val">${quizzes.length}</div><div class="sc-lbl">Quiz'lar</div></div>
+  </div>
+  <div class="g2">
+    <div class="ic">
+      <div class="st">💳 To'lov hisoboti</div>
+      <div class="ir"><span class="il">To'lagan</span><span class="iv" style="color:var(--gr);font-weight:700">${payments.filter(p=>p.status==='paid').length} nafar</span></div>
+      <div class="ir"><span class="il">Qarzdor</span><span class="iv" style="color:var(--rd);font-weight:700">${payments.filter(p=>p.status==='pending').length} nafar</span></div>
+      <div class="ir"><span class="il">To'lov foizi</span><span class="iv" style="font-weight:700">${Math.round(payments.filter(p=>p.status==='paid').length/payments.length*100)}%</span></div>
+      <div class="ir"><span class="il">Jami summa</span><span class="iv" style="color:var(--or);font-weight:700">${payments.filter(p=>p.status==='paid').reduce((a,p)=>a+p.amount,0).toLocaleString()} so'm</span></div>
+    </div>
+    <div class="ic">
+      <div class="st">📊 O'quvchilar hisoboti</div>
+      <div class="ir"><span class="il">Faol</span><span class="iv" style="color:var(--gr);font-weight:700">${students.filter(s=>s.status==='active').length} nafar</span></div>
+      <div class="ir"><span class="il">Nofaol</span><span class="iv" style="color:var(--rd);font-weight:700">${students.filter(s=>s.status!=='active').length} nafar</span></div>
+      <div class="ir"><span class="il">O'rt. progress</span><span class="iv" style="font-weight:700">${Math.round(students.reduce((a,s)=>a+s.progress,0)/students.length)}%</span></div>
+      <div class="ir"><span class="il">Jami coinlar</span><span class="iv"><span class="cb2">🪙 ${students.reduce((a,s)=>a+s.coins,0)}</span></span></div>
+    </div>
+  </div>`;}
+
+// ══════════════════════════════════════
+// STAFF
+// ══════════════════════════════════════
+function pageStaff(){return `
+  <div class="tc">
+    <div class="th2"><h3>👥 Xodimlar</h3><button class="addb" onclick="addStaffModal()">+ Qo'shish</button></div>
+    <table><thead><tr><th>ISM</th><th>LAVOZIM</th><th>TELEFON</th><th>PAROL</th><th>GURUH</th><th>AMAL</th></tr></thead>
+    <tbody>
+      ${[
+        {name:'Mentor Ustoz',role:'mentor',phone:'+998993725257',pass:'2141',group:'Python Guruh'},
+        {name:'Support Mentor',role:'support',phone:'+998995525792',pass:'2141',group:'Barchasi'},
+        {name:'Kurator',role:'kurator',phone:'+998999999999',pass:'2141',group:'Python Guruh'},
+        {name:'Moliya Bo\'limi',role:'moliya',phone:'+998968892121',pass:'2141',group:'—'},
+      ].map(x=>`<tr>
+        <td><strong>${x.name}</strong></td>
+        <td><span class="badge ${x.role==='mentor'?'bb':x.role==='support'?'bp':x.role==='kurator'?'bo':'bg'}">${roleLabel(x.role)}</span></td>
+        <td>${x.phone}</td><td style="font-family:monospace">${x.pass}</td><td>${x.group}</td>
+        <td><button class="abt">✏️ Tahrir</button><button class="abt dn">🗑️</button></td>
+      </tr>`).join('')}
+    </tbody></table>
+  </div>`;}
+
+function addStaffModal(){
+  openModal('👤 Yangi Xodim',`
+    <div class="g2">
+      <div class="fg"><label>ISM FAMILIYA</label><input class="fi" placeholder="Ism Familiya"></div>
+      <div class="fg"><label>LAVOZIM</label><select class="fi"><option>Mentor</option><option>Kurator</option><option>Support</option><option>Moliya</option></select></div>
+    </div>
+    <div class="g2">
+      <div class="fg"><label>TELEFON</label><input class="fi" placeholder="+998XXXXXXXXX"></div>
+      <div class="fg"><label>PAROL</label><input class="fi" placeholder="Parol"></div>
+    </div>
+    <div class="mda"><button class="bp2" onclick="closeModal();showToast('✅ Xodim qo\\'shildi!')">Saqlash</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+// ══════════════════════════════════════
+// GROUPS
+// ══════════════════════════════════════
+function pageGroups(){return `
+  <div class="g3">${courses.map(c=>`
+    <div class="ic" style="border-top:4px solid ${c.color}">
+      <div style="font-size:32px;margin-bottom:8px">${c.icon}</div>
+      <div style="font-size:16px;font-weight:700;margin-bottom:4px">${c.group}</div>
+      <div class="ir"><span class="il">Kurs</span><span class="iv">${c.name}</span></div>
+      <div class="ir"><span class="il">O'quvchilar</span><span class="iv">${students.filter(s=>s.group===c.group).length} nafar</span></div>
+      <div class="ir"><span class="il">Mentor</span><span class="iv">Mentor Ustoz</span></div>
+      <div class="ir"><span class="il">Holat</span><span class="iv"><span class="badge bg">Faol</span></span></div>
+      <button class="addb" style="width:100%;margin-top:12px" onclick="showPage('students','O\\'quvchilar')">O'quvchilarni ko'rish</button>
+    </div>`).join('')}
+  </div>`;}
+
+// ══════════════════════════════════════
+// CHAT
+// ══════════════════════════════════════
+function pageChat(){return `
+  <div class="cha">
+    <div class="chm" id="chm">
+      ${chatMsgs.map(m=>`
+        <div class="cm ${m.from===cu.name?'me':'other'}">
+          <div class="cav" style="background:${roleColor(m.role)};color:#fff">${m.from[0]}</div>
+          <div>
+            <div style="font-size:11px;color:var(--mu);margin-bottom:3px">${m.from===cu.name?'Sen':m.from} · ${m.time}</div>
+            <div class="cbbl">${m.text}</div>
+          </div>
+        </div>`).join('')}
+    </div>
+    <div class="cir">
+      <input id="chi" placeholder="Xabar yozing..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="cs" onclick="sendChat()">↑</button>
+    </div>
+  </div>`;}
+
+function sendChat(){
+  const inp=document.getElementById('chi');const txt=inp.value.trim();
+  if(!txt)return;
+  chatMsgs.push({from:cu.name,text:txt,time:new Date().toTimeString().slice(0,5),role:cu.role});
+  inp.value='';showPage('chat','Chat');
+}
+
+// ══════════════════════════════════════
+// NOTIFICATIONS
+// ══════════════════════════════════════
+function showNotifs(){
+  openModal('🔔 Bildirishnomalar',`
+    <div>
+      ${[
+        {icon:'📝',title:'Yangi topshiriq yuborildi',time:'5 daqiqa oldin',role:'mentor'},
+        {icon:'🪙',title:'50 coin oldiniz!',time:'1 soat oldin',role:'student'},
+        {icon:'📢',title:'Yangi e\'lon: Dars vaqti o\'zgardi',time:'2 soat oldin',role:'admin'},
+        {icon:'💳',title:'To\'lov eslatmasi',time:'1 kun oldin',role:'moliya'},
+      ].map(n=>`<div class="nf-item">
+        <div class="nf-ic" style="background:var(--orl)">${n.icon}</div>
+        <div class="nf-body"><div class="nf-title">${n.title}</div><div class="nf-time">${n.time}</div></div>
+        <div class="nf-dot"></div>
+      </div>`).join('')}
+    </div>
+    <div style="text-align:center;margin-top:12px"><button class="addb" style="background:var(--mu)" onclick="closeModal()">Hammasini o'qildi</button></div>
+  `);
+}
+
+const ENTERPRISE_LIBRARY=[
+  {id:1,cat:'Python',title:'Python Basic Variables',level:'Beginner',dur:'12 min'},
+  {id:2,cat:'Python',title:'Python Conditionals',level:'Beginner',dur:'14 min'},
+  {id:3,cat:'Python',title:'Python Loops',level:'Beginner',dur:'16 min'},
+  {id:4,cat:'Python',title:'Python Functions',level:'Beginner',dur:'17 min'},
+  {id:5,cat:'Python',title:'Python Lists',level:'Beginner',dur:'13 min'},
+  {id:6,cat:'Python',title:'Python Dictionaries',level:'Beginner',dur:'15 min'},
+  {id:7,cat:'Python',title:'Python Tuples',level:'Beginner',dur:'11 min'},
+  {id:8,cat:'Python',title:'Python Sets',level:'Beginner',dur:'13 min'},
+  {id:9,cat:'Python',title:'Python OOP Intro',level:'Intermediate',dur:'19 min'},
+  {id:10,cat:'Python',title:'Python Class Methods',level:'Intermediate',dur:'18 min'},
+  {id:11,cat:'Python',title:'Python Magic Methods',level:'Advanced',dur:'22 min'},
+  {id:12,cat:'Python',title:'Python File Handling',level:'Intermediate',dur:'17 min'},
+  {id:13,cat:'Python',title:'Python JSON',level:'Intermediate',dur:'16 min'},
+  {id:14,cat:'Python',title:'Python Requests',level:'Intermediate',dur:'18 min'},
+  {id:15,cat:'Python',title:'Python Asyncio',level:'Advanced',dur:'24 min'},
+  {id:16,cat:'Python',title:'Python Generators',level:'Advanced',dur:'21 min'},
+  {id:17,cat:'Web',title:'HTML Semantic Tags',level:'Beginner',dur:'10 min'},
+  {id:18,cat:'Web',title:'HTML Forms',level:'Beginner',dur:'12 min'},
+  {id:19,cat:'Web',title:'CSS Flexbox',level:'Beginner',dur:'15 min'},
+  {id:20,cat:'Web',title:'CSS Grid',level:'Intermediate',dur:'18 min'},
+  {id:21,cat:'Web',title:'Responsive Design',level:'Intermediate',dur:'19 min'},
+  {id:22,cat:'Web',title:'JavaScript Basics',level:'Beginner',dur:'14 min'},
+  {id:23,cat:'Web',title:'DOM Manipulation',level:'Beginner',dur:'16 min'},
+  {id:24,cat:'Web',title:'ES6 Features',level:'Intermediate',dur:'17 min'},
+  {id:25,cat:'Web',title:'Fetch API',level:'Intermediate',dur:'15 min'},
+  {id:26,cat:'Web',title:'LocalStorage',level:'Beginner',dur:'9 min'},
+  {id:27,cat:'Web',title:'Async Await',level:'Intermediate',dur:'18 min'},
+  {id:28,cat:'Web',title:'Error Handling JS',level:'Intermediate',dur:'17 min'},
+  {id:29,cat:'Web',title:'TypeScript Intro',level:'Intermediate',dur:'20 min'},
+  {id:30,cat:'Web',title:'TypeScript Generics',level:'Advanced',dur:'23 min'},
+  {id:31,cat:'React',title:'React Components',level:'Beginner',dur:'14 min'},
+  {id:32,cat:'React',title:'React Props & State',level:'Beginner',dur:'16 min'},
+  {id:33,cat:'React',title:'React Hooks useState',level:'Beginner',dur:'12 min'},
+  {id:34,cat:'React',title:'React Hooks useEffect',level:'Intermediate',dur:'17 min'},
+  {id:35,cat:'React',title:'React Router',level:'Intermediate',dur:'19 min'},
+  {id:36,cat:'React',title:'React Context API',level:'Intermediate',dur:'18 min'},
+  {id:37,cat:'React',title:'Redux Toolkit Intro',level:'Intermediate',dur:'21 min'},
+  {id:38,cat:'React',title:'React Performance',level:'Advanced',dur:'24 min'},
+  {id:39,cat:'React',title:'Memo and Callback',level:'Advanced',dur:'20 min'},
+  {id:40,cat:'React',title:'React Testing',level:'Advanced',dur:'25 min'},
+  {id:41,cat:'Backend',title:'Node.js Fundamentals',level:'Beginner',dur:'15 min'},
+  {id:42,cat:'Backend',title:'Express Routing',level:'Beginner',dur:'14 min'},
+  {id:43,cat:'Backend',title:'REST API Design',level:'Intermediate',dur:'18 min'},
+  {id:44,cat:'Backend',title:'Middleware in Express',level:'Intermediate',dur:'17 min'},
+  {id:45,cat:'Backend',title:'Auth JWT',level:'Intermediate',dur:'22 min'},
+  {id:46,cat:'Backend',title:'Rate Limiting',level:'Advanced',dur:'20 min'},
+  {id:47,cat:'Backend',title:'WebSocket Intro',level:'Advanced',dur:'23 min'},
+  {id:48,cat:'Backend',title:'Queue Systems',level:'Advanced',dur:'26 min'},
+  {id:49,cat:'Backend',title:'Cron Jobs',level:'Intermediate',dur:'15 min'},
+  {id:50,cat:'Backend',title:'Node Security',level:'Advanced',dur:'28 min'},
+  {id:51,cat:'Database',title:'SQL Basics',level:'Beginner',dur:'13 min'},
+  {id:52,cat:'Database',title:'JOIN Operations',level:'Intermediate',dur:'16 min'},
+  {id:53,cat:'Database',title:'Indexing',level:'Intermediate',dur:'18 min'},
+  {id:54,cat:'Database',title:'Transactions',level:'Intermediate',dur:'17 min'},
+  {id:55,cat:'Database',title:'Normalization',level:'Intermediate',dur:'15 min'},
+  {id:56,cat:'Database',title:'SQLite Practice',level:'Beginner',dur:'12 min'},
+  {id:57,cat:'Database',title:'PostgreSQL Intro',level:'Intermediate',dur:'20 min'},
+  {id:58,cat:'Database',title:'Query Optimization',level:'Advanced',dur:'24 min'},
+  {id:59,cat:'Database',title:'Replication Intro',level:'Advanced',dur:'27 min'},
+  {id:60,cat:'Database',title:'Backup Strategy',level:'Advanced',dur:'19 min'},
+  {id:61,cat:'DevOps',title:'Linux Essentials',level:'Beginner',dur:'14 min'},
+  {id:62,cat:'DevOps',title:'Git Workflow',level:'Beginner',dur:'12 min'},
+  {id:63,cat:'DevOps',title:'Branch Strategy',level:'Intermediate',dur:'16 min'},
+  {id:64,cat:'DevOps',title:'CI Pipeline Basics',level:'Intermediate',dur:'18 min'},
+  {id:65,cat:'DevOps',title:'Docker Intro',level:'Intermediate',dur:'21 min'},
+  {id:66,cat:'DevOps',title:'Docker Compose',level:'Intermediate',dur:'19 min'},
+  {id:67,cat:'DevOps',title:'Kubernetes Intro',level:'Advanced',dur:'26 min'},
+  {id:68,cat:'DevOps',title:'Monitoring Basics',level:'Advanced',dur:'20 min'},
+  {id:69,cat:'DevOps',title:'Logging Strategy',level:'Advanced',dur:'19 min'},
+  {id:70,cat:'DevOps',title:'Blue Green Deploy',level:'Advanced',dur:'25 min'},
+  {id:71,cat:'SoftSkills',title:'Communication for Devs',level:'Beginner',dur:'10 min'},
+  {id:72,cat:'SoftSkills',title:'Time Management',level:'Beginner',dur:'9 min'},
+  {id:73,cat:'SoftSkills',title:'Public Speaking',level:'Intermediate',dur:'12 min'},
+  {id:74,cat:'SoftSkills',title:'Technical Writing',level:'Intermediate',dur:'13 min'},
+  {id:75,cat:'SoftSkills',title:'Interview Skills',level:'Intermediate',dur:'15 min'},
+  {id:76,cat:'SoftSkills',title:'Leadership Basics',level:'Advanced',dur:'17 min'},
+  {id:77,cat:'SoftSkills',title:'Team Conflict Solving',level:'Advanced',dur:'16 min'},
+  {id:78,cat:'SoftSkills',title:'Mentorship Skills',level:'Advanced',dur:'18 min'},
+  {id:79,cat:'SoftSkills',title:'Career Planning',level:'Intermediate',dur:'14 min'},
+  {id:80,cat:'SoftSkills',title:'Portfolio Building',level:'Beginner',dur:'11 min'}
+];
+
+const EXAM_BLUEPRINT=[
+  {id:1,module:'Python',title:'Variables & Types',questions:20,pass:70,time:'30 min'},
+  {id:2,module:'Python',title:'Conditionals',questions:15,pass:70,time:'25 min'},
+  {id:3,module:'Python',title:'Loops',questions:18,pass:70,time:'28 min'},
+  {id:4,module:'Python',title:'Functions',questions:22,pass:70,time:'32 min'},
+  {id:5,module:'Python',title:'OOP Basics',questions:24,pass:75,time:'35 min'},
+  {id:6,module:'Python',title:'Error Handling',questions:16,pass:70,time:'24 min'},
+  {id:7,module:'Web',title:'HTML Basics',questions:20,pass:70,time:'30 min'},
+  {id:8,module:'Web',title:'CSS Core',questions:20,pass:70,time:'30 min'},
+  {id:9,module:'Web',title:'Flexbox and Grid',questions:20,pass:75,time:'32 min'},
+  {id:10,module:'Web',title:'JavaScript Core',questions:25,pass:75,time:'38 min'},
+  {id:11,module:'Web',title:'DOM Events',questions:18,pass:70,time:'28 min'},
+  {id:12,module:'Web',title:'Async JavaScript',questions:15,pass:75,time:'27 min'},
+  {id:13,module:'React',title:'React Fundamentals',questions:20,pass:75,time:'35 min'},
+  {id:14,module:'React',title:'Hooks',questions:20,pass:75,time:'35 min'},
+  {id:15,module:'React',title:'State Management',questions:18,pass:75,time:'33 min'},
+  {id:16,module:'Backend',title:'Node and Express',questions:22,pass:75,time:'36 min'},
+  {id:17,module:'Backend',title:'REST API',questions:20,pass:75,time:'35 min'},
+  {id:18,module:'Backend',title:'Authentication',questions:20,pass:80,time:'35 min'},
+  {id:19,module:'Database',title:'SQL Foundation',questions:20,pass:70,time:'30 min'},
+  {id:20,module:'Database',title:'Advanced SQL',questions:20,pass:75,time:'32 min'},
+  {id:21,module:'DevOps',title:'Git + CI/CD',questions:20,pass:70,time:'30 min'},
+  {id:22,module:'DevOps',title:'Docker',questions:18,pass:75,time:'30 min'},
+  {id:23,module:'DevOps',title:'Monitoring',questions:14,pass:70,time:'24 min'},
+  {id:24,module:'SoftSkills',title:'Communication',questions:12,pass:70,time:'20 min'},
+  {id:25,module:'SoftSkills',title:'Teamwork',questions:12,pass:70,time:'20 min'},
+  {id:26,module:'SoftSkills',title:'Project Planning',questions:16,pass:75,time:'24 min'},
+  {id:27,module:'Security',title:'OWASP Basics',questions:18,pass:80,time:'30 min'},
+  {id:28,module:'Security',title:'Secure Coding',questions:20,pass:80,time:'32 min'},
+  {id:29,module:'Security',title:'Threat Modeling',questions:14,pass:80,time:'24 min'},
+  {id:30,module:'Career',title:'Interview Readiness',questions:10,pass:70,time:'15 min'},
+  {id:31,module:'Python',title:'Modules & Packages',questions:14,pass:70,time:'22 min'},
+  {id:32,module:'Python',title:'Decorators',questions:12,pass:75,time:'20 min'},
+  {id:33,module:'Python',title:'Generators',questions:12,pass:75,time:'20 min'},
+  {id:34,module:'Web',title:'Accessibility',questions:14,pass:75,time:'22 min'},
+  {id:35,module:'Web',title:'Browser APIs',questions:14,pass:75,time:'22 min'},
+  {id:36,module:'React',title:'Performance',questions:14,pass:80,time:'24 min'},
+  {id:37,module:'React',title:'Testing',questions:14,pass:80,time:'24 min'},
+  {id:38,module:'Backend',title:'Caching',questions:14,pass:75,time:'22 min'},
+  {id:39,module:'Backend',title:'Message Queue',questions:14,pass:80,time:'24 min'},
+  {id:40,module:'Database',title:'Indexes',questions:14,pass:75,time:'22 min'},
+  {id:41,module:'Database',title:'Transactions',questions:14,pass:75,time:'22 min'},
+  {id:42,module:'Database',title:'Schema Design',questions:14,pass:75,time:'22 min'},
+  {id:43,module:'DevOps',title:'Release Strategy',questions:12,pass:75,time:'20 min'},
+  {id:44,module:'DevOps',title:'Incident Response',questions:12,pass:80,time:'20 min'},
+  {id:45,module:'Security',title:'API Security',questions:14,pass:80,time:'22 min'},
+  {id:46,module:'Security',title:'Session Security',questions:12,pass:80,time:'20 min'},
+  {id:47,module:'Security',title:'Cloud Security',questions:12,pass:80,time:'20 min'},
+  {id:48,module:'Career',title:'CV Optimization',questions:10,pass:70,time:'15 min'},
+  {id:49,module:'Career',title:'Behavioral Answers',questions:10,pass:70,time:'15 min'},
+  {id:50,module:'Career',title:'Offer Negotiation',questions:10,pass:70,time:'15 min'},
+  {id:51,module:'Leadership',title:'Team Building',questions:12,pass:75,time:'20 min'},
+  {id:52,module:'Leadership',title:'Delegation',questions:12,pass:75,time:'20 min'},
+  {id:53,module:'Leadership',title:'Roadmap Planning',questions:12,pass:75,time:'20 min'},
+  {id:54,module:'AI',title:'Prompt Engineering',questions:16,pass:75,time:'24 min'},
+  {id:55,module:'AI',title:'LLM Fundamentals',questions:16,pass:75,time:'24 min'},
+  {id:56,module:'AI',title:'AI Ethics',questions:14,pass:75,time:'22 min'},
+  {id:57,module:'AI',title:'Automation Basics',questions:14,pass:75,time:'22 min'},
+  {id:58,module:'Mobile',title:'Flutter Basics',questions:16,pass:70,time:'24 min'},
+  {id:59,module:'Mobile',title:'React Native Intro',questions:16,pass:70,time:'24 min'},
+  {id:60,module:'Mobile',title:'State in Mobile Apps',questions:14,pass:70,time:'22 min'}
+];
+
+const ENTERPRISE_CHECKLIST=[
+'01. Weekly planning structure',
+'02. Daily standup quality',
+'03. Mentor lesson preparation',
+'04. Student attendance quality',
+'05. Assignment rubric quality',
+'06. Quiz validation complete',
+'07. Payment reminder cadence',
+'08. Student support SLA',
+'09. QA review of lessons',
+'10. Course outline revision',
+'11. Academic calendar update',
+'12. Interview simulation day',
+'13. Parent communication log',
+'14. Group capacity planning',
+'15. Backup and recovery test',
+'16. API latency monitoring',
+'17. Analytics board update',
+'18. Content plagiarism scan',
+'19. Certification tracking',
+'20. Placement support status',
+'21. Lab machine readiness',
+'22. Security patch status',
+'23. Team workload balancing',
+'24. New mentor onboarding',
+'25. Student risk monitoring',
+'26. Communication quality checks',
+'27. LMS UI feedback review',
+'28. Quiz pool expansion',
+'29. Homework auto-grading rules',
+'30. Video content subtitles',
+'31. Device compatibility check',
+'32. Browser support matrix',
+'33. Roadmap sprint update',
+'34. Student NPS collection',
+'35. Weekly leaderboard reset',
+'36. Course archive process',
+'37. New intake pipeline',
+'38. Re-enrollment campaign',
+'39. Financial report approval',
+'40. Compliance checklist review',
+'41. AI assistant prompt updates',
+'42. Learning path personalization',
+'43. Mentor KPI sync',
+'44. Student engagement watch',
+'45. Dropout prevention action',
+'46. LMS announcement quality',
+'47. Discussion board moderation',
+'48. Attendance anomaly alerts',
+'49. Late payment forecast',
+'50. Trial class conversion',
+'51. CRM stage confidence',
+'52. Sales script quality',
+'53. Support ticket aging',
+'54. Exam anti-cheat policy',
+'55. Oral assessment cadence',
+'56. Project defense scheduling',
+'57. Demo day readiness',
+'58. Portfolio quality control',
+'59. Referral program follow-up',
+'60. Scholarship slot planning',
+'61. Monthly outcomes snapshot',
+'62. Semester goal update',
+'63. Partner hiring outreach',
+'64. Graduation tracker sync',
+'65. Alumni network updates',
+'66. Documentation completeness',
+'67. Feature request triage',
+'68. Bug fix SLA',
+'69. Content translation status',
+'70. Accessibility validation',
+'71. Mentor shadow sessions',
+'72. Student confidence tracking',
+'73. Parent report card flow',
+'74. Billing reconciliation',
+'75. Refund policy compliance',
+'76. Legal terms revision',
+'77. Device loan tracking',
+'78. Classroom equipment maintenance',
+'79. Marketing calendar alignment',
+'80. Social proof updates',
+'81. Weekly launch checklist',
+'82. Sprint retro action items',
+'83. Internal audit schedule',
+'84. Data retention policy',
+'85. Password hygiene campaign',
+'86. MFA enforcement',
+'87. API key rotation',
+'88. Data export validation',
+'89. Admin permission audit',
+'90. Role matrix check',
+'91. Folder structure cleanup',
+'92. Naming convention quality',
+'93. Coding guideline refresh',
+'94. Build status checks',
+'95. Release note generation',
+'96. Hotfix readiness drill',
+'97. Mentorship pulse survey',
+'98. Student sentiment survey',
+'99. Course completion reminder',
+'100. Final project rubric',
+'101. Sprint backlog grooming',
+'102. Calendar conflict detection',
+'103. Quiz attempt analytics',
+'104. Assignment plagiarism ratio',
+'105. Career module refresh',
+'106. Resume review queue',
+'107. Mock interview queue',
+'108. Hiring partner call logs',
+'109. Talent shortlist updates',
+'110. Cohort graduation prep',
+'111. Exam retake policy',
+'112. Lab challenge updates',
+'113. Score normalization review',
+'114. Mentor office hours',
+'115. Curator follow-up logs',
+'116. Support canned replies',
+'117. Payment gateway health',
+'118. Bank reconciliation logs',
+'119. Finance dashboard refresh',
+'120. Revenue forecast model',
+'121. Cost center breakdown',
+'122. Marketing ROI checks',
+'123. Ads funnel QA',
+'124. Landing page QA',
+'125. Sign-up flow QA',
+'126. Trial class checklist',
+'127. Call center scripts',
+'128. Voice quality review',
+'129. Live class quality',
+'130. Session recording archive',
+'131. Video transcoding queue',
+'132. CDN usage tracking',
+'133. Asset optimization',
+'134. Certificate issue queue',
+'135. Badge criteria revision',
+'136. Coin economy balancing',
+'137. Reward fairness review',
+'138. Discipline policy updates',
+'139. Community guideline checks',
+'140. User blocking workflow',
+'141. Parent escalation flow',
+'142. Multi-branch governance',
+'143. Branch KPI compare',
+'144. Learning objective scoring',
+'145. Outcome mapping quality',
+'146. Competency matrix audit',
+'147. Internship coordination',
+'148. Partner project intake',
+'149. Stakeholder status report',
+'150. Quarterly OKR review',
+'151. Branch 1 performance',
+'152. Branch 2 performance',
+'153. Branch 3 performance',
+'154. Branch 4 performance',
+'155. Branch 5 performance',
+'156. Branch 6 performance',
+'157. Branch 7 performance',
+'158. Branch 8 performance',
+'159. Branch 9 performance',
+'160. Branch 10 performance',
+'161. Branch 11 performance',
+'162. Branch 12 performance',
+'163. Branch 13 performance',
+'164. Branch 14 performance',
+'165. Branch 15 performance',
+'166. Branch 16 performance',
+'167. Branch 17 performance',
+'168. Branch 18 performance',
+'169. Branch 19 performance',
+'170. Branch 20 performance',
+'171. Branch 21 performance',
+'172. Branch 22 performance',
+'173. Branch 23 performance',
+'174. Branch 24 performance',
+'175. Branch 25 performance',
+'176. Branch 26 performance',
+'177. Branch 27 performance',
+'178. Branch 28 performance',
+'179. Branch 29 performance',
+'180. Branch 30 performance',
+'181. Branch 31 performance',
+'182. Branch 32 performance',
+'183. Branch 33 performance',
+'184. Branch 34 performance',
+'185. Branch 35 performance',
+'186. Branch 36 performance',
+'187. Branch 37 performance',
+'188. Branch 38 performance',
+'189. Branch 39 performance',
+'190. Branch 40 performance',
+'191. Branch 41 performance',
+'192. Branch 42 performance',
+'193. Branch 43 performance',
+'194. Branch 44 performance',
+'195. Branch 45 performance',
+'196. Branch 46 performance',
+'197. Branch 47 performance',
+'198. Branch 48 performance',
+'199. Branch 49 performance',
+'200. Branch 50 performance',
+'201. Branch 51 performance',
+'202. Branch 52 performance',
+'203. Branch 53 performance',
+'204. Branch 54 performance',
+'205. Branch 55 performance',
+'206. Branch 56 performance',
+'207. Branch 57 performance',
+'208. Branch 58 performance',
+'209. Branch 59 performance',
+'210. Branch 60 performance',
+'211. Branch 61 performance',
+'212. Branch 62 performance',
+'213. Branch 63 performance',
+'214. Branch 64 performance',
+'215. Branch 65 performance',
+'216. Branch 66 performance',
+'217. Branch 67 performance',
+'218. Branch 68 performance',
+'219. Branch 69 performance',
+'220. Branch 70 performance',
+'221. Branch 71 performance',
+'222. Branch 72 performance',
+'223. Branch 73 performance',
+'224. Branch 74 performance',
+'225. Branch 75 performance',
+'226. Branch 76 performance',
+'227. Branch 77 performance',
+'228. Branch 78 performance',
+'229. Branch 79 performance',
+'230. Branch 80 performance',
+'231. Branch 81 performance',
+'232. Branch 82 performance',
+'233. Branch 83 performance',
+'234. Branch 84 performance',
+'235. Branch 85 performance',
+'236. Branch 86 performance',
+'237. Branch 87 performance',
+'238. Branch 88 performance',
+'239. Branch 89 performance',
+'240. Branch 90 performance',
+'241. Branch 91 performance',
+'242. Branch 92 performance',
+'243. Branch 93 performance',
+'244. Branch 94 performance',
+'245. Branch 95 performance',
+'246. Branch 96 performance',
+'247. Branch 97 performance',
+'248. Branch 98 performance',
+'249. Branch 99 performance',
+'250. Branch 100 performance',
+'251. Branch 101 performance',
+'252. Branch 102 performance',
+'253. Branch 103 performance',
+'254. Branch 104 performance',
+'255. Branch 105 performance',
+'256. Branch 106 performance',
+'257. Branch 107 performance',
+'258. Branch 108 performance',
+'259. Branch 109 performance',
+'260. Branch 110 performance'
+];
+
+function pageCRM(){return `
+  <div class="ekpi">
+    <div class="k"><div class="n">Leadlar</div><div class="v">412</div><div class="t" style="color:var(--gr)">+18% oyiga</div></div>
+    <div class="k"><div class="n">Aktiv suhbat</div><div class="v">129</div><div class="t" style="color:var(--bl)">36 bugun</div></div>
+    <div class="k"><div class="n">Konversiya</div><div class="v">27%</div><div class="t" style="color:var(--or)">+3.2%</div></div>
+    <div class="k"><div class="n">Triallar</div><div class="v">67</div><div class="t" style="color:var(--pu)">12 bugun</div></div>
+    <div class="k"><div class="n">Yopilgan</div><div class="v">38</div><div class="t" style="color:var(--gr)">6 bugun</div></div>
+  </div>
+  <div class="crm-board">
+    <div class="crm-col">
+      <h4>🧲 Yangi lead</h4>
+      <div class="crm-card"><div class="ttl">Abdullayev Otabek</div><div class="meta">Telegram • Python</div><div class="sum">Potential: 500,000</div></div>
+      <div class="crm-card"><div class="ttl">Saidova Feruza</div><div class="meta">Instagram • Web</div><div class="sum">Potential: 600,000</div></div>
+      <div class="crm-card"><div class="ttl">Nematov Aziz</div><div class="meta">Call center • React</div><div class="sum">Potential: 700,000</div></div>
+    </div>
+    <div class="crm-col">
+      <h4>☎️ Aloqada</h4>
+      <div class="crm-card"><div class="ttl">Mamadaliyeva Asal</div><div class="meta">Qo'ng'iroq qilindi</div><div class="sum">Next: Ertaga</div></div>
+      <div class="crm-card"><div class="ttl">Yigitaliyev Sanjar</div><div class="meta">Demo class kutmoqda</div><div class="sum">Potential: 500,000</div></div>
+      <div class="crm-card"><div class="ttl">Bozorova Sevinch</div><div class="meta">Parent bilan suhbat</div><div class="sum">Potential: 600,000</div></div>
+    </div>
+    <div class="crm-col">
+      <h4>🧪 Trial</h4>
+      <div class="crm-card"><div class="ttl">Qodirov Jahongir</div><div class="meta">2-darsda ishtirok</div><div class="sum">Engagement: 84%</div></div>
+      <div class="crm-card"><div class="ttl">Mirzayeva Dilrabo</div><div class="meta">1-dars completed</div><div class="sum">Engagement: 70%</div></div>
+      <div class="crm-card"><div class="ttl">To'xtayev Jamshid</div><div class="meta">Follow-up kerak</div><div class="sum">Risk: O'rta</div></div>
+    </div>
+    <div class="crm-col">
+      <h4>✅ Yopildi</h4>
+      <div class="crm-card"><div class="ttl">Karimov Javohir</div><div class="meta">Python Guruhga qo'shildi</div><div class="sum">Paid: 500,000</div></div>
+      <div class="crm-card"><div class="ttl">Soliyeva Mohira</div><div class="meta">Web Dev ga qo'shildi</div><div class="sum">Paid: 600,000</div></div>
+      <div class="crm-card"><div class="ttl">Raximov Behruz</div><div class="meta">React Guruhga qo'shildi</div><div class="sum">Paid: 700,000</div></div>
+    </div>
+  </div>
+  <div class="xgrid" style="margin-top:14px">
+    <div class="xcard">
+      <div class="st">📊 Konversiya Segmentlari</div>
+      <div class="xrow"><span class="xname">Instagram</span><span class="xval">31%</span></div>
+      <div class="xrow"><span class="xname">Telegram</span><span class="xval">28%</span></div>
+      <div class="xrow"><span class="xname">Referral</span><span class="xval">44%</span></div>
+      <div class="xrow"><span class="xname">Cold Call</span><span class="xval">18%</span></div>
+      <div class="xrow"><span class="xname">YouTube</span><span class="xval">24%</span></div>
+      <div class="xrow"><span class="xname">Offline event</span><span class="xval">39%</span></div>
+    </div>
+    <div class="xcard">
+      <div class="st">🎯 Kunlik Actionlar</div>
+      ${ENTERPRISE_CHECKLIST.slice(0,24).map((t,i)=>`<div class="xrow"><span class="xname">${i+1}. ${t}</span><span class="xval"><span class="chip">${i%3===0?'Done':'Pending'}</span></span></div>`).join('')}
+    </div>
+  </div>
+`;}
+
+function pageExamCenter(){return `
+  <div class="th2" style="background:var(--wh);border-radius:14px;box-shadow:var(--sh);margin-bottom:14px">
+    <h3>🧠 Exam Center</h3>
+    <button class="addb" onclick="showToast('✅ Yangi exam yaratiladi')">+ New Exam</button>
+    <button class="addb bl" onclick="showToast('📤 Exam report export')">📤 Export Report</button>
+  </div>
+  <div class="tc">
+    <div class="th2"><h3>📋 Exam Blueprint</h3></div>
+    <table><thead><tr><th>#</th><th>MODUL</th><th>EXAM NOMI</th><th>SAVOL</th><th>PASS</th><th>VAQT</th><th>HOLAT</th></tr></thead>
+    <tbody>${EXAM_BLUEPRINT.map((x,i)=>`<tr>
+      <td>${i+1}</td>
+      <td>${x.module}</td>
+      <td><strong>${x.title}</strong></td>
+      <td>${x.questions}</td>
+      <td>${x.pass}%</td>
+      <td>${x.time}</td>
+      <td><span class="badge ${i%2===0?'bg':'bb'}">${i%2===0?'Active':'Draft'}</span></td>
+    </tr>`).join('')}</tbody></table>
+  </div>
+`;}
+
+function pageLibrary(){
+  return `
+    <div class="th2" style="background:var(--wh);border-radius:14px;box-shadow:var(--sh);margin-bottom:14px">
+      <h3>📖 Knowledge Library</h3>
+      <input class="si" placeholder="Qidirish..." oninput="filterLibrary(this.value)">
+      <button class="addb" onclick="showToast('✅ Resource qo\\'shish oynasi')">+ Resource</button>
+    </div>
+    <div id="libraryWrap">${buildLibraryGrid(ENTERPRISE_LIBRARY)}</div>
+  `;
+}
+
+function buildLibraryGrid(list){
+  return `<div class="lb-grid">${list.map(it=>`
+    <div class="lb-item">
+      <div class="cat">${it.cat} • ${it.level} • ${it.dur}</div>
+      <div class="name">${it.title}</div>
+      <div class="desc">Bu material orqali mavzu bo'yicha tushuncha, amaliy kod va mini-practice topshiriqlarini olasiz.</div>
+      <div class="act">
+        <button class="abt">👁 Ko'rish</button>
+        <button class="abt">⬇ Yuklash</button>
+      </div>
+    </div>`).join('')}</div>`;
+}
+
+function filterLibrary(q){
+  const s=q.trim().toLowerCase();
+  const list=ENTERPRISE_LIBRARY.filter(x=>
+    x.title.toLowerCase().includes(s)||
+    x.cat.toLowerCase().includes(s)||
+    x.level.toLowerCase().includes(s)
+  );
+  const w=document.getElementById('libraryWrap');
+  if(w)w.innerHTML=buildLibraryGrid(list);
+}
+
+function pageRoadmap(){return `
+  <div class="th2" style="background:var(--wh);border-radius:14px;box-shadow:var(--sh);margin-bottom:14px">
+    <h3>🗺️ Product & Academic Roadmap</h3>
+    <button class="addb pu" onclick="showToast('✅ Sprint yaratildi')">+ Sprint</button>
+  </div>
+  <div class="rm-tl">
+    ${[
+      {m:'Q1',t:'Platform Foundation',d:'Auth, role system, core dashboards, payments baseline va initial analytics.'},
+      {m:'Q2',t:'Academic Scale',d:'Lesson builder 2.0, quiz anti-cheat, assignment automation, CRM pipeline stabilization.'},
+      {m:'Q3',t:'Placement Layer',d:'Portfolio module, mock interview workflows, employer integrations va reporting.'},
+      {m:'Q4',t:'AI and Branch Expansion',d:'AI mentor copilot, adaptive learning paths, multi-branch governance.'}
+    ].map(p=>`<div class="rm-phase"><h4>${p.m} — ${p.t}</h4><p>${p.d}</p></div>`).join('')}
+  </div>
+  <div class="tc" style="margin-top:14px">
+    <div class="th2"><h3>📌 260-Point Operational Checklist</h3></div>
+    <table><thead><tr><th>#</th><th>ITEM</th><th>STATUS</th><th>OWNER</th></tr></thead>
+      <tbody>${ENTERPRISE_CHECKLIST.map((c,i)=>`<tr>
+        <td>${i+1}</td>
+        <td>${c}</td>
+        <td><span class="badge ${i%4===0?'bg':i%4===1?'bb':i%4===2?'bo':'by'}">${i%4===0?'Done':i%4===1?'In progress':i%4===2?'Planned':'Watch'}</span></td>
+        <td>${i%5===0?'Direktor':i%5===1?'Mentor':i%5===2?'Kurator':i%5===3?'Support':'Moliya'}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+  </div>
+`;}
+
+function pageAIAssist(){return `
+  <div class="ai-box">
+    <h4>🤖 AI Assist Center</h4>
+    <div style="font-size:13px;opacity:.9">Prompt yozing: AI sizga dars rejasi, quiz savollar, feedback yoki roadmap taklif qiladi.</div>
+    <div class="ai-prompt" style="margin-top:12px">
+      <input id="aiInp" placeholder="Masalan: Python OOP uchun 2 haftalik plan tuzib ber">
+      <button onclick="runAIAssist()">Generate</button>
+    </div>
+    <div class="ai-answer" id="aiAns">AI javobi shu yerda chiqadi...</div>
+  </div>
+  <div class="xgrid">
+    <div class="xcard">
+      <div class="st">🧩 Prompt Templates</div>
+      <div class="xrow"><span class="xname">Course Plan Prompt</span><span class="xval"><button class="abt" onclick="usePrompt('course')">Use</button></span></div>
+      <div class="xrow"><span class="xname">Quiz Generator Prompt</span><span class="xval"><button class="abt" onclick="usePrompt('quiz')">Use</button></span></div>
+      <div class="xrow"><span class="xname">Student Feedback Prompt</span><span class="xval"><button class="abt" onclick="usePrompt('feedback')">Use</button></span></div>
+      <div class="xrow"><span class="xname">Retention Strategy Prompt</span><span class="xval"><button class="abt" onclick="usePrompt('retention')">Use</button></span></div>
+    </div>
+    <div class="xcard">
+      <div class="st">📌 AI Tavsiyalar</div>
+      ${ENTERPRISE_CHECKLIST.slice(40,80).map((x,i)=>`<div class="xrow"><span class="xname">${i+1}. ${x}</span><span class="xval">AI Hint</span></div>`).join('')}
+    </div>
+  </div>
+`;}
+
+function usePrompt(type){
+  const map={
+    course:"Python backend bo'yicha 4 haftalik syllabus tuz. Har hafta 3 ta dars, 1 ta amaliy vazifa bo'lsin.",
+    quiz:"Web dasturlash bo'yicha 20 ta test savol tuz. Har savolga 4 variant va to'g'ri javobni alohida ber.",
+    feedback:"Student progress 62%. Kuchli va zaif tomonlarini ko'rsatib, aniq improvement plan yoz.",
+    retention:"Dropout risk yuqori bo'lgan studentlar uchun 7 kunlik retention action plan yoz."
+  };
+  const i=document.getElementById('aiInp');
+  if(i)i.value=map[type]||'';
+}
+
+function runAIAssist(){
+  const inp=document.getElementById('aiInp');
+  const out=document.getElementById('aiAns');
+  if(!inp||!out)return;
+  const q=(inp.value||'').trim();
+  if(!q){showToast('❌ Prompt kiriting');return}
+  out.textContent=`Prompt: "${q}"\n\nAI taklif:\n1) Maqsadni aniqlang\n2) Haftalik KPI belgilang\n3) Progressni 2 kunda bir o'lchang\n4) 3 ta amaliy task bilan mustahkamlang\n5) Yakunda mini-assessment qiling`;
+  showToast('✅ AI javob tayyorlandi');
+}
+
+function pageSettingsPro(){return `
+  <div class="th2" style="background:var(--wh);border-radius:14px;box-shadow:var(--sh);margin-bottom:14px">
+    <h3>⚙️ Settings Pro</h3>
+    <button class="addb" onclick="showToast('✅ Sozlamalar saqlandi')">Saqlash</button>
+  </div>
+  <div class="set-grid">
+    <div class="set-card">
+      <h4>🌐 Platform General</h4>
+      <div class="set-opt"><span>Platform nomi</span><span class="chip">Smart IT School</span></div>
+      <div class="set-opt"><span>Timezone</span><span class="chip">Asia/Tashkent</span></div>
+      <div class="set-opt"><span>Language</span><span class="chip">Uzbek</span></div>
+      <div class="set-opt"><span>Theme</span><span class="chip">Light</span></div>
+      <div class="set-opt"><span>Auto backup</span><span class="chip">Daily</span></div>
+      <div class="set-opt"><span>Semester mode</span><span class="chip">Enabled</span></div>
+    </div>
+    <div class="set-card">
+      <h4>🔐 Security</h4>
+      <div class="set-opt"><span>Password policy</span><span class="chip">Strong</span></div>
+      <div class="set-opt"><span>MFA</span><span class="chip">Optional</span></div>
+      <div class="set-opt"><span>Session timeout</span><span class="chip">45 min</span></div>
+      <div class="set-opt"><span>IP whitelist</span><span class="chip">Off</span></div>
+      <div class="set-opt"><span>Audit logs</span><span class="chip">On</span></div>
+      <div class="set-opt"><span>API token rotation</span><span class="chip">30 days</span></div>
+    </div>
+    <div class="set-card">
+      <h4>📚 Academic</h4>
+      <div class="set-opt"><span>Default lesson duration</span><span class="chip">90 min</span></div>
+      <div class="set-opt"><span>Attendance threshold</span><span class="chip">80%</span></div>
+      <div class="set-opt"><span>Quiz pass score</span><span class="chip">70%</span></div>
+      <div class="set-opt"><span>Assignment late penalty</span><span class="chip">-10%</span></div>
+      <div class="set-opt"><span>Coin reward mode</span><span class="chip">Balanced</span></div>
+      <div class="set-opt"><span>Certificate auto-issue</span><span class="chip">On</span></div>
+    </div>
+    <div class="set-card">
+      <h4>💳 Finance</h4>
+      <div class="set-opt"><span>Default monthly fee</span><span class="chip">500,000</span></div>
+      <div class="set-opt"><span>Reminder day</span><span class="chip">25</span></div>
+      <div class="set-opt"><span>Grace period</span><span class="chip">5 days</span></div>
+      <div class="set-opt"><span>Auto receipt</span><span class="chip">On</span></div>
+      <div class="set-opt"><span>Discount approval</span><span class="chip">Director</span></div>
+      <div class="set-opt"><span>Debt alert</span><span class="chip">On</span></div>
+    </div>
+  </div>
+  <div class="tc" style="margin-top:14px">
+    <div class="th2"><h3>🧾 Configuration Audit Trail</h3></div>
+    <table><thead><tr><th>#</th><th>EVENT</th><th>ACTOR</th><th>DATE</th><th>IMPACT</th></tr></thead>
+      <tbody>
+        ${Array.from({length:120},(_,i)=>`<tr>
+          <td>${i+1}</td>
+          <td>Config update #${i+1}</td>
+          <td>${i%4===0?'Direktor':i%4===1?'Moliya':i%4===2?'Mentor':'Support'}</td>
+          <td>2026-05-${String((i%28)+1).padStart(2,'0')}</td>
+          <td><span class="badge ${i%3===0?'bg':i%3===1?'bo':'bb'}">${i%3===0?'Low':i%3===1?'Medium':'High'}</span></td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>
+`;}
+
+function pageCertificates(){
+  return `
+    <div class="th2" style="background:var(--wh);border-radius:14px;box-shadow:var(--sh);margin-bottom:20px">
+      <h3>🎓 Sertifikatlar</h3>
+      ${cu.role!=='student'?`<button class="addb" onclick="issueCertificateModal()">+ Sertifikat berish</button>`:''}
+    </div>
+    <div class="tc">
+      <table><thead><tr><th>#</th><th>O'quvchi</th><th>Kurs</th><th>Holat</th><th>Sana</th><th>Ball</th><th>Amal</th></tr></thead>
+      <tbody>${certificates.map((c,i)=>`<tr>
+          <td>${i+1}</td>
+          <td>${c.student}</td>
+          <td>${c.course}</td>
+          <td><span class="badge ${c.status==='issued'?'bg':'bo'}">${c.status==='issued'?'Berilgan':'Kutilmoqda'}</span></td>
+          <td>${c.date||'—'}</td>
+          <td>${c.grade?c.grade+'%':'—'}</td>
+          <td><button class="abt" onclick="viewCertificate(${c.id})">👁</button></td>
+        </tr>`).join('')}</tbody></table>
+    </div>
+  `;
+}
+
+function issueCertificateModal(){
+  openModal('🎓 Sertifikat yaratish',`
+    <div class="fg"><label>O'QUVCHI</label><select class="fi" id="certStudent">${students.map(s=>`<option>${s.name}</option>`).join('')}</select></div>
+    <div class="fg"><label>KURS</label><select class="fi" id="certCourse">${courses.map(c=>`<option>${c.name}</option>`).join('')}</select></div>
+    <div class="fg"><label>BALL</label><input class="fi" id="certGrade" type="number" placeholder="90"></div>
+    <div class="mda"><button class="bp2" onclick="saveCertificate()">✅ Berish</button><button class="bg2" onclick="closeModal()">Bekor</button></div>
+  `);
+}
+
+function saveCertificate(){
+  const student=document.getElementById('certStudent').value;
+  const course=document.getElementById('certCourse').value;
+  const grade=+document.getElementById('certGrade').value;
+  if(!student||!course||!grade){showToast('❌ Barcha maydonlarni to\'ldiring');return}
+  certificates.unshift({id:Date.now(),student,course,status:'issued',date:new Date().toISOString().slice(0,10),grade});
+  closeModal();showToast('✅ Sertifikat berildi!');showPage('certificate','Sertifikatlar');
+}
+
+function viewCertificate(id){
+  const cert=certificates.find(c=>c.id===id);
+  if(!cert)return;
+  openModal(`🎓 ${cert.student}`,`
+    <div class="ir"><span class="il">Kurs</span><span class="iv">${cert.course}</span></div>
+    <div class="ir"><span class="il">Ball</span><span class="iv">${cert.grade}%</span></div>
+    <div class="ir"><span class="il">Sana</span><span class="iv">${cert.date}</span></div>
+    <div class="ir"><span class="il">Holat</span><span class="iv">${cert.status==='issued'?'Berilgan':'Kutilmoqda'}</span></div>
+    <div class="mda"><button class="bp2" onclick="closeModal()">Yopish</button></div>
+  `);
+}
+
+function pageCompiler(){
+  return `
+    <div class="ic">
+      <div class="st">🧪 Ichki kompilator</div>
+      <div class="fg"><label>Kod tili</label><select class="fi" id="codeLang"><option value="javascript">JavaScript</option></select></div>
+      <div class="fg"><label>Kod</label><textarea class="fi" id="codeArea" rows="12">console.log('Smart IT School');</textarea></div>
+      <div class="mda"><button class="bp2" onclick="runCompiler()">▶ Ishga tushurish</button><button class="bg2" onclick="document.getElementById('compilerOutput').textContent=''">Tozalash</button></div>
+      <div class="st" style="margin-top:18px">Chiqish</div>
+      <pre id="compilerOutput" style="background:#111827;color:#d8dee9;border-radius:12px;padding:16px;min-height:120px;overflow:auto;font-family:monospace;font-size:13px"></pre>
+    </div>
+  `;
+}
+
+function runCompiler(){
+  const code=document.getElementById('codeArea').value;
+  const out=document.getElementById('compilerOutput');
+  if(!code){out.textContent='Kod kiriting';return}
+  try{
+    const result=eval(code);
+    out.textContent=String(result===undefined?'OK':result);
+  }catch(e){out.textContent='Error: '+e.message;}
+}
+
+function pageGeneric(id){
+  const label=id.replace(/([A-Z])/g,' $1').replace(/(^|\b)([a-z])/g,(m,p1,p2)=>p2.toUpperCase()).replace(/Menu \d+$/,'');
+  return `
+    <div class="ic">
+      <div class="st">📌 ${label}</div>
+      <p style="color:var(--mu);line-height:1.8">Bu sahifa role-ga asoslangan sahifalar to'plamini taqdim etadi. Agar sahifa hali tayyor bo'lmasa, bu umumiy kontent parchasi yordamida tezkor nazorat qilish va tizimga qarash mumkin.</p>
+      <div class="ir"><span class="il">Role</span><span class="iv">${roleLabel(cu.role)}</span></div>
+      <div class="ir"><span class="il">Foydalanuvchi</span><span class="iv">${cu.name}</span></div>
+      <div class="ir"><span class="il">Asosiy funksiyalar</span><span class="iv">AI yordam, ma'lumot saqlash, sertifikat tizimi</span></div>
+      <button class="addb" onclick="showToast('Sahifa ustida ishlash boshlandi')">🔧 Ishni davom ettirish</button>
+    </div>
+  `;
+}
+
+const megaOpsManual=`
+OP-001 | LMS opening checklist
+OP-002 | LMS opening checklist
+OP-003 | LMS opening checklist
+OP-004 | LMS opening checklist
+OP-005 | LMS opening checklist
+OP-006 | LMS opening checklist
+OP-007 | LMS opening checklist
+OP-008 | LMS opening checklist
+OP-009 | LMS opening checklist
+OP-010 | LMS opening checklist
+OP-011 | LMS opening checklist
+OP-012 | LMS opening checklist
+OP-013 | LMS opening checklist
+OP-014 | LMS opening checklist
+OP-015 | LMS opening checklist
+OP-016 | LMS opening checklist
+OP-017 | LMS opening checklist
+OP-018 | LMS opening checklist
+OP-019 | LMS opening checklist
+OP-020 | LMS opening checklist
+OP-021 | LMS opening checklist
+OP-022 | LMS opening checklist
+OP-023 | LMS opening checklist
+OP-024 | LMS opening checklist
+OP-025 | LMS opening checklist
+OP-026 | LMS opening checklist
+OP-027 | LMS opening checklist
+OP-028 | LMS opening checklist
+OP-029 | LMS opening checklist
+OP-030 | LMS opening checklist
+OP-031 | LMS opening checklist
+OP-032 | LMS opening checklist
+OP-033 | LMS opening checklist
+OP-034 | LMS opening checklist
+OP-035 | LMS opening checklist
+OP-036 | LMS opening checklist
+OP-037 | LMS opening checklist
+OP-038 | LMS opening checklist
+OP-039 | LMS opening checklist
+OP-040 | LMS opening checklist
+OP-041 | LMS opening checklist
+OP-042 | LMS opening checklist
+OP-043 | LMS opening checklist
+OP-044 | LMS opening checklist
+OP-045 | LMS opening checklist
+OP-046 | LMS opening checklist
+OP-047 | LMS opening checklist
+OP-048 | LMS opening checklist
+OP-049 | LMS opening checklist
+OP-050 | LMS opening checklist
+OP-051 | LMS opening checklist
+OP-052 | LMS opening checklist
+OP-053 | LMS opening checklist
+OP-054 | LMS opening checklist
+OP-055 | LMS opening checklist
+OP-056 | LMS opening checklist
+OP-057 | LMS opening checklist
+OP-058 | LMS opening checklist
+OP-059 | LMS opening checklist
+OP-060 | LMS opening checklist
+OP-061 | LMS opening checklist
+OP-062 | LMS opening checklist
+OP-063 | LMS opening checklist
+OP-064 | LMS opening checklist
+OP-065 | LMS opening checklist
+OP-066 | LMS opening checklist
+OP-067 | LMS opening checklist
+OP-068 | LMS opening checklist
+OP-069 | LMS opening checklist
+OP-070 | LMS opening checklist
+OP-071 | LMS opening checklist
+OP-072 | LMS opening checklist
+OP-073 | LMS opening checklist
+OP-074 | LMS opening checklist
+OP-075 | LMS opening checklist
+OP-076 | LMS opening checklist
+OP-077 | LMS opening checklist
+OP-078 | LMS opening checklist
+OP-079 | LMS opening checklist
+OP-080 | LMS opening checklist
+OP-081 | LMS opening checklist
+OP-082 | LMS opening checklist
+OP-083 | LMS opening checklist
+OP-084 | LMS opening checklist
+OP-085 | LMS opening checklist
+OP-086 | LMS opening checklist
+OP-087 | LMS opening checklist
+OP-088 | LMS opening checklist
+OP-089 | LMS opening checklist
+OP-090 | LMS opening checklist
+OP-091 | LMS opening checklist
+OP-092 | LMS opening checklist
+OP-093 | LMS opening checklist
+OP-094 | LMS opening checklist
+OP-095 | LMS opening checklist
+OP-096 | LMS opening checklist
+OP-097 | LMS opening checklist
+OP-098 | LMS opening checklist
+OP-099 | LMS opening checklist
+OP-100 | LMS opening checklist
+OP-101 | LMS opening checklist
+OP-102 | LMS opening checklist
+OP-103 | LMS opening checklist
+OP-104 | LMS opening checklist
+OP-105 | LMS opening checklist
+OP-106 | LMS opening checklist
+OP-107 | LMS opening checklist
+OP-108 | LMS opening checklist
+OP-109 | LMS opening checklist
+OP-110 | LMS opening checklist
+OP-111 | LMS opening checklist
+OP-112 | LMS opening checklist
+OP-113 | LMS opening checklist
+OP-114 | LMS opening checklist
+OP-115 | LMS opening checklist
+OP-116 | LMS opening checklist
+OP-117 | LMS opening checklist
+OP-118 | LMS opening checklist
+OP-119 | LMS opening checklist
+OP-120 | LMS opening checklist
+OP-121 | LMS opening checklist
+OP-122 | LMS opening checklist
+OP-123 | LMS opening checklist
+OP-124 | LMS opening checklist
+OP-125 | LMS opening checklist
+OP-126 | LMS opening checklist
+OP-127 | LMS opening checklist
+OP-128 | LMS opening checklist
+OP-129 | LMS opening checklist
+OP-130 | LMS opening checklist
+OP-131 | LMS opening checklist
+OP-132 | LMS opening checklist
+OP-133 | LMS opening checklist
+OP-134 | LMS opening checklist
+OP-135 | LMS opening checklist
+OP-136 | LMS opening checklist
+OP-137 | LMS opening checklist
+OP-138 | LMS opening checklist
+OP-139 | LMS opening checklist
+OP-140 | LMS opening checklist
+OP-141 | LMS opening checklist
+OP-142 | LMS opening checklist
+OP-143 | LMS opening checklist
+OP-144 | LMS opening checklist
+OP-145 | LMS opening checklist
+OP-146 | LMS opening checklist
+OP-147 | LMS opening checklist
+OP-148 | LMS opening checklist
+OP-149 | LMS opening checklist
+OP-150 | LMS opening checklist
+OP-151 | LMS opening checklist
+OP-152 | LMS opening checklist
+OP-153 | LMS opening checklist
+OP-154 | LMS opening checklist
+OP-155 | LMS opening checklist
+OP-156 | LMS opening checklist
+OP-157 | LMS opening checklist
+OP-158 | LMS opening checklist
+OP-159 | LMS opening checklist
+OP-160 | LMS opening checklist
+OP-161 | LMS opening checklist
+OP-162 | LMS opening checklist
+OP-163 | LMS opening checklist
+OP-164 | LMS opening checklist
+OP-165 | LMS opening checklist
+OP-166 | LMS opening checklist
+OP-167 | LMS opening checklist
+OP-168 | LMS opening checklist
+OP-169 | LMS opening checklist
+OP-170 | LMS opening checklist
+OP-171 | LMS opening checklist
+OP-172 | LMS opening checklist
+OP-173 | LMS opening checklist
+OP-174 | LMS opening checklist
+OP-175 | LMS opening checklist
+OP-176 | LMS opening checklist
+OP-177 | LMS opening checklist
+OP-178 | LMS opening checklist
+OP-179 | LMS opening checklist
+OP-180 | LMS opening checklist
+OP-181 | LMS opening checklist
+OP-182 | LMS opening checklist
+OP-183 | LMS opening checklist
+OP-184 | LMS opening checklist
+OP-185 | LMS opening checklist
+OP-186 | LMS opening checklist
+OP-187 | LMS opening checklist
+OP-188 | LMS opening checklist
+OP-189 | LMS opening checklist
+OP-190 | LMS opening checklist
+OP-191 | LMS opening checklist
+OP-192 | LMS opening checklist
+OP-193 | LMS opening checklist
+OP-194 | LMS opening checklist
+OP-195 | LMS opening checklist
+OP-196 | LMS opening checklist
+OP-197 | LMS opening checklist
+OP-198 | LMS opening checklist
+OP-199 | LMS opening checklist
+OP-200 | LMS opening checklist
+OP-201 | LMS opening checklist
+OP-202 | LMS opening checklist
+OP-203 | LMS opening checklist
+OP-204 | LMS opening checklist
+OP-205 | LMS opening checklist
+OP-206 | LMS opening checklist
+OP-207 | LMS opening checklist
+OP-208 | LMS opening checklist
+OP-209 | LMS opening checklist
+OP-210 | LMS opening checklist
+OP-211 | LMS opening checklist
+OP-212 | LMS opening checklist
+OP-213 | LMS opening checklist
+OP-214 | LMS opening checklist
+OP-215 | LMS opening checklist
+OP-216 | LMS opening checklist
+OP-217 | LMS opening checklist
+OP-218 | LMS opening checklist
+OP-219 | LMS opening checklist
+OP-220 | LMS opening checklist
+OP-221 | LMS opening checklist
+OP-222 | LMS opening checklist
+OP-223 | LMS opening checklist
+OP-224 | LMS opening checklist
+OP-225 | LMS opening checklist
+OP-226 | LMS opening checklist
+OP-227 | LMS opening checklist
+OP-228 | LMS opening checklist
+OP-229 | LMS opening checklist
+OP-230 | LMS opening checklist
+OP-231 | LMS opening checklist
+OP-232 | LMS opening checklist
+OP-233 | LMS opening checklist
+OP-234 | LMS opening checklist
+OP-235 | LMS opening checklist
+OP-236 | LMS opening checklist
+OP-237 | LMS opening checklist
+OP-238 | LMS opening checklist
+OP-239 | LMS opening checklist
+OP-240 | LMS opening checklist
+OP-241 | LMS opening checklist
+OP-242 | LMS opening checklist
+OP-243 | LMS opening checklist
+OP-244 | LMS opening checklist
+OP-245 | LMS opening checklist
+OP-246 | LMS opening checklist
+OP-247 | LMS opening checklist
+OP-248 | LMS opening checklist
+OP-249 | LMS opening checklist
+OP-250 | LMS opening checklist
+OP-251 | LMS opening checklist
+OP-252 | LMS opening checklist
+OP-253 | LMS opening checklist
+OP-254 | LMS opening checklist
+OP-255 | LMS opening checklist
+OP-256 | LMS opening checklist
+OP-257 | LMS opening checklist
+OP-258 | LMS opening checklist
+OP-259 | LMS opening checklist
+OP-260 | LMS opening checklist
+OP-261 | LMS opening checklist
+OP-262 | LMS opening checklist
+OP-263 | LMS opening checklist
+OP-264 | LMS opening checklist
+OP-265 | LMS opening checklist
+OP-266 | LMS opening checklist
+OP-267 | LMS opening checklist
+OP-268 | LMS opening checklist
+OP-269 | LMS opening checklist
+OP-270 | LMS opening checklist
+OP-271 | LMS opening checklist
+OP-272 | LMS opening checklist
+OP-273 | LMS opening checklist
+OP-274 | LMS opening checklist
+OP-275 | LMS opening checklist
+OP-276 | LMS opening checklist
+OP-277 | LMS opening checklist
+OP-278 | LMS opening checklist
+OP-279 | LMS opening checklist
+OP-280 | LMS opening checklist
+OP-281 | LMS opening checklist
+OP-282 | LMS opening checklist
+OP-283 | LMS opening checklist
+OP-284 | LMS opening checklist
+OP-285 | LMS opening checklist
+OP-286 | LMS opening checklist
+OP-287 | LMS opening checklist
+OP-288 | LMS opening checklist
+OP-289 | LMS opening checklist
+OP-290 | LMS opening checklist
+OP-291 | LMS opening checklist
+OP-292 | LMS opening checklist
+OP-293 | LMS opening checklist
+OP-294 | LMS opening checklist
+OP-295 | LMS opening checklist
+OP-296 | LMS opening checklist
+OP-297 | LMS opening checklist
+OP-298 | LMS opening checklist
+OP-299 | LMS opening checklist
+OP-300 | LMS opening checklist
+OP-301 | LMS opening checklist
+OP-302 | LMS opening checklist
+OP-303 | LMS opening checklist
+OP-304 | LMS opening checklist
+OP-305 | LMS opening checklist
+OP-306 | LMS opening checklist
+OP-307 | LMS opening checklist
+OP-308 | LMS opening checklist
+OP-309 | LMS opening checklist
+OP-310 | LMS opening checklist
+OP-311 | LMS opening checklist
+OP-312 | LMS opening checklist
+OP-313 | LMS opening checklist
+OP-314 | LMS opening checklist
+OP-315 | LMS opening checklist
+OP-316 | LMS opening checklist
+OP-317 | LMS opening checklist
+OP-318 | LMS opening checklist
+OP-319 | LMS opening checklist
+OP-320 | LMS opening checklist
+OP-321 | LMS opening checklist
+OP-322 | LMS opening checklist
+OP-323 | LMS opening checklist
+OP-324 | LMS opening checklist
+OP-325 | LMS opening checklist
+OP-326 | LMS opening checklist
+OP-327 | LMS opening checklist
+OP-328 | LMS opening checklist
+OP-329 | LMS opening checklist
+OP-330 | LMS opening checklist
+OP-331 | LMS opening checklist
+OP-332 | LMS opening checklist
+OP-333 | LMS opening checklist
+OP-334 | LMS opening checklist
+OP-335 | LMS opening checklist
+OP-336 | LMS opening checklist
+OP-337 | LMS opening checklist
+OP-338 | LMS opening checklist
+OP-339 | LMS opening checklist
+OP-340 | LMS opening checklist
+OP-341 | LMS opening checklist
+OP-342 | LMS opening checklist
+OP-343 | LMS opening checklist
+OP-344 | LMS opening checklist
+OP-345 | LMS opening checklist
+OP-346 | LMS opening checklist
+OP-347 | LMS opening checklist
+OP-348 | LMS opening checklist
+OP-349 | LMS opening checklist
+OP-350 | LMS opening checklist
+OP-351 | LMS opening checklist
+OP-352 | LMS opening checklist
+OP-353 | LMS opening checklist
+OP-354 | LMS opening checklist
+OP-355 | LMS opening checklist
+OP-356 | LMS opening checklist
+OP-357 | LMS opening checklist
+OP-358 | LMS opening checklist
+OP-359 | LMS opening checklist
+OP-360 | LMS opening checklist
+OP-361 | LMS opening checklist
+OP-362 | LMS opening checklist
+OP-363 | LMS opening checklist
+OP-364 | LMS opening checklist
+OP-365 | LMS opening checklist
+OP-366 | LMS opening checklist
+OP-367 | LMS opening checklist
+OP-368 | LMS opening checklist
+OP-369 | LMS opening checklist
+OP-370 | LMS opening checklist
+OP-371 | LMS opening checklist
+OP-372 | LMS opening checklist
+OP-373 | LMS opening checklist
+OP-374 | LMS opening checklist
+OP-375 | LMS opening checklist
+OP-376 | LMS opening checklist
+OP-377 | LMS opening checklist
+OP-378 | LMS opening checklist
+OP-379 | LMS opening checklist
+OP-380 | LMS opening checklist
+OP-381 | LMS opening checklist
+OP-382 | LMS opening checklist
+OP-383 | LMS opening checklist
+OP-384 | LMS opening checklist
+OP-385 | LMS opening checklist
+OP-386 | LMS opening checklist
+OP-387 | LMS opening checklist
+OP-388 | LMS opening checklist
+OP-389 | LMS opening checklist
+OP-390 | LMS opening checklist
+OP-391 | LMS opening checklist
+OP-392 | LMS opening checklist
+OP-393 | LMS opening checklist
+OP-394 | LMS opening checklist
+OP-395 | LMS opening checklist
+OP-396 | LMS opening checklist
+OP-397 | LMS opening checklist
+OP-398 | LMS opening checklist
+OP-399 | LMS opening checklist
+OP-400 | LMS opening checklist
+OP-401 | LMS opening checklist
+OP-402 | LMS opening checklist
+OP-403 | LMS opening checklist
+OP-404 | LMS opening checklist
+OP-405 | LMS opening checklist
+OP-406 | LMS opening checklist
+OP-407 | LMS opening checklist
+OP-408 | LMS opening checklist
+OP-409 | LMS opening checklist
+OP-410 | LMS opening checklist
+OP-411 | LMS opening checklist
+OP-412 | LMS opening checklist
+OP-413 | LMS opening checklist
+OP-414 | LMS opening checklist
+OP-415 | LMS opening checklist
+OP-416 | LMS opening checklist
+OP-417 | LMS opening checklist
+OP-418 | LMS opening checklist
+OP-419 | LMS opening checklist
+OP-420 | LMS opening checklist
+OP-421 | LMS opening checklist
+OP-422 | LMS opening checklist
+OP-423 | LMS opening checklist
+OP-424 | LMS opening checklist
+OP-425 | LMS opening checklist
+OP-426 | LMS opening checklist
+OP-427 | LMS opening checklist
+OP-428 | LMS opening checklist
+OP-429 | LMS opening checklist
+OP-430 | LMS opening checklist
+OP-431 | LMS opening checklist
+OP-432 | LMS opening checklist
+OP-433 | LMS opening checklist
+OP-434 | LMS opening checklist
+OP-435 | LMS opening checklist
+OP-436 | LMS opening checklist
+OP-437 | LMS opening checklist
+OP-438 | LMS opening checklist
+OP-439 | LMS opening checklist
+OP-440 | LMS opening checklist
+OP-441 | LMS opening checklist
+OP-442 | LMS opening checklist
+OP-443 | LMS opening checklist
+OP-444 | LMS opening checklist
+OP-445 | LMS opening checklist
+OP-446 | LMS opening checklist
+OP-447 | LMS opening checklist
+OP-448 | LMS opening checklist
+OP-449 | LMS opening checklist
+OP-450 | LMS opening checklist
+OP-451 | LMS opening checklist
+OP-452 | LMS opening checklist
+OP-453 | LMS opening checklist
+OP-454 | LMS opening checklist
+OP-455 | LMS opening checklist
+OP-456 | LMS opening checklist
+OP-457 | LMS opening checklist
+OP-458 | LMS opening checklist
+OP-459 | LMS opening checklist
+OP-460 | LMS opening checklist
+OP-461 | LMS opening checklist
+OP-462 | LMS opening checklist
+OP-463 | LMS opening checklist
+OP-464 | LMS opening checklist
+OP-465 | LMS opening checklist
+OP-466 | LMS opening checklist
+OP-467 | LMS opening checklist
+OP-468 | LMS opening checklist
+OP-469 | LMS opening checklist
+OP-470 | LMS opening checklist
+OP-471 | LMS opening checklist
+OP-472 | LMS opening checklist
+OP-473 | LMS opening checklist
+OP-474 | LMS opening checklist
+OP-475 | LMS opening checklist
+OP-476 | LMS opening checklist
+OP-477 | LMS opening checklist
+OP-478 | LMS opening checklist
+OP-479 | LMS opening checklist
+OP-480 | LMS opening checklist
+OP-481 | LMS opening checklist
+OP-482 | LMS opening checklist
+OP-483 | LMS opening checklist
+OP-484 | LMS opening checklist
+OP-485 | LMS opening checklist
+OP-486 | LMS opening checklist
+OP-487 | LMS opening checklist
+OP-488 | LMS opening checklist
+OP-489 | LMS opening checklist
+OP-490 | LMS opening checklist
+OP-491 | LMS opening checklist
+OP-492 | LMS opening checklist
+OP-493 | LMS opening checklist
+OP-494 | LMS opening checklist
+OP-495 | LMS opening checklist
+OP-496 | LMS opening checklist
+OP-497 | LMS opening checklist
+OP-498 | LMS opening checklist
+OP-499 | LMS opening checklist
+OP-500 | LMS opening checklist
+OP-501 | LMS opening checklist
+OP-502 | LMS opening checklist
+OP-503 | LMS opening checklist
+OP-504 | LMS opening checklist
+OP-505 | LMS opening checklist
+OP-506 | LMS opening checklist
+OP-507 | LMS opening checklist
+OP-508 | LMS opening checklist
+OP-509 | LMS opening checklist
+OP-510 | LMS opening checklist
+OP-511 | LMS opening checklist
+OP-512 | LMS opening checklist
+OP-513 | LMS opening checklist
+OP-514 | LMS opening checklist
+OP-515 | LMS opening checklist
+OP-516 | LMS opening checklist
+OP-517 | LMS opening checklist
+OP-518 | LMS opening checklist
+OP-519 | LMS opening checklist
+OP-520 | LMS opening checklist
+OP-521 | LMS opening checklist
+OP-522 | LMS opening checklist
+OP-523 | LMS opening checklist
+OP-524 | LMS opening checklist
+OP-525 | LMS opening checklist
+OP-526 | LMS opening checklist
+OP-527 | LMS opening checklist
+OP-528 | LMS opening checklist
+OP-529 | LMS opening checklist
+OP-530 | LMS opening checklist
+OP-531 | LMS opening checklist
+OP-532 | LMS opening checklist
+OP-533 | LMS opening checklist
+OP-534 | LMS opening checklist
+OP-535 | LMS opening checklist
+OP-536 | LMS opening checklist
+OP-537 | LMS opening checklist
+OP-538 | LMS opening checklist
+OP-539 | LMS opening checklist
+OP-540 | LMS opening checklist
+OP-541 | LMS opening checklist
+OP-542 | LMS opening checklist
+OP-543 | LMS opening checklist
+OP-544 | LMS opening checklist
+OP-545 | LMS opening checklist
+OP-546 | LMS opening checklist
+OP-547 | LMS opening checklist
+OP-548 | LMS opening checklist
+OP-549 | LMS opening checklist
+OP-550 | LMS opening checklist
+OP-551 | LMS opening checklist
+OP-552 | LMS opening checklist
+OP-553 | LMS opening checklist
+OP-554 | LMS opening checklist
+OP-555 | LMS opening checklist
+OP-556 | LMS opening checklist
+OP-557 | LMS opening checklist
+OP-558 | LMS opening checklist
+OP-559 | LMS opening checklist
+OP-560 | LMS opening checklist
+OP-561 | LMS opening checklist
+OP-562 | LMS opening checklist
+OP-563 | LMS opening checklist
+OP-564 | LMS opening checklist
+OP-565 | LMS opening checklist
+OP-566 | LMS opening checklist
+OP-567 | LMS opening checklist
+OP-568 | LMS opening checklist
+OP-569 | LMS opening checklist
+OP-570 | LMS opening checklist
+OP-571 | LMS opening checklist
+OP-572 | LMS opening checklist
+OP-573 | LMS opening checklist
+OP-574 | LMS opening checklist
+OP-575 | LMS opening checklist
+OP-576 | LMS opening checklist
+OP-577 | LMS opening checklist
+OP-578 | LMS opening checklist
+OP-579 | LMS opening checklist
+OP-580 | LMS opening checklist
+OP-581 | LMS opening checklist
+OP-582 | LMS opening checklist
+OP-583 | LMS opening checklist
+OP-584 | LMS opening checklist
+OP-585 | LMS opening checklist
+OP-586 | LMS opening checklist
+OP-587 | LMS opening checklist
+OP-588 | LMS opening checklist
+OP-589 | LMS opening checklist
+OP-590 | LMS opening checklist
+OP-591 | LMS opening checklist
+OP-592 | LMS opening checklist
+OP-593 | LMS opening checklist
+OP-594 | LMS opening checklist
+OP-595 | LMS opening checklist
+OP-596 | LMS opening checklist
+OP-597 | LMS opening checklist
+OP-598 | LMS opening checklist
+OP-599 | LMS opening checklist
+OP-600 | LMS opening checklist
+OP-601 | LMS opening checklist
+OP-602 | LMS opening checklist
+OP-603 | LMS opening checklist
+OP-604 | LMS opening checklist
+OP-605 | LMS opening checklist
+OP-606 | LMS opening checklist
+OP-607 | LMS opening checklist
+OP-608 | LMS opening checklist
+OP-609 | LMS opening checklist
+OP-610 | LMS opening checklist
+OP-611 | LMS opening checklist
+OP-612 | LMS opening checklist
+OP-613 | LMS opening checklist
+OP-614 | LMS opening checklist
+OP-615 | LMS opening checklist
+OP-616 | LMS opening checklist
+OP-617 | LMS opening checklist
+OP-618 | LMS opening checklist
+OP-619 | LMS opening checklist
+OP-620 | LMS opening checklist
+OP-621 | LMS opening checklist
+OP-622 | LMS opening checklist
+OP-623 | LMS opening checklist
+OP-624 | LMS opening checklist
+OP-625 | LMS opening checklist
+OP-626 | LMS opening checklist
+OP-627 | LMS opening checklist
+OP-628 | LMS opening checklist
+OP-629 | LMS opening checklist
+OP-630 | LMS opening checklist
+OP-631 | LMS opening checklist
+OP-632 | LMS opening checklist
+OP-633 | LMS opening checklist
+OP-634 | LMS opening checklist
+OP-635 | LMS opening checklist
+OP-636 | LMS opening checklist
+OP-637 | LMS opening checklist
+OP-638 | LMS opening checklist
+OP-639 | LMS opening checklist
+OP-640 | LMS opening checklist
+OP-641 | LMS opening checklist
+OP-642 | LMS opening checklist
+OP-643 | LMS opening checklist
+OP-644 | LMS opening checklist
+OP-645 | LMS opening checklist
+OP-646 | LMS opening checklist
+OP-647 | LMS opening checklist
+OP-648 | LMS opening checklist
+OP-649 | LMS opening checklist
+OP-650 | LMS opening checklist
+OP-651 | LMS opening checklist
+OP-652 | LMS opening checklist
+OP-653 | LMS opening checklist
+OP-654 | LMS opening checklist
+OP-655 | LMS opening checklist
+OP-656 | LMS opening checklist
+OP-657 | LMS opening checklist
+OP-658 | LMS opening checklist
+OP-659 | LMS opening checklist
+OP-660 | LMS opening checklist
+OP-661 | LMS opening checklist
+OP-662 | LMS opening checklist
+OP-663 | LMS opening checklist
+OP-664 | LMS opening checklist
+OP-665 | LMS opening checklist
+OP-666 | LMS opening checklist
+OP-667 | LMS opening checklist
+OP-668 | LMS opening checklist
+OP-669 | LMS opening checklist
+OP-670 | LMS opening checklist
+OP-671 | LMS opening checklist
+OP-672 | LMS opening checklist
+OP-673 | LMS opening checklist
+OP-674 | LMS opening checklist
+OP-675 | LMS opening checklist
+OP-676 | LMS opening checklist
+OP-677 | LMS opening checklist
+OP-678 | LMS opening checklist
+OP-679 | LMS opening checklist
+OP-680 | LMS opening checklist
+OP-681 | LMS opening checklist
+OP-682 | LMS opening checklist
+OP-683 | LMS opening checklist
+OP-684 | LMS opening checklist
+OP-685 | LMS opening checklist
+OP-686 | LMS opening checklist
+OP-687 | LMS opening checklist
+OP-688 | LMS opening checklist
+OP-689 | LMS opening checklist
+OP-690 | LMS opening checklist
+OP-691 | LMS opening checklist
+OP-692 | LMS opening checklist
+OP-693 | LMS opening checklist
+OP-694 | LMS opening checklist
+OP-695 | LMS opening checklist
+OP-696 | LMS opening checklist
+OP-697 | LMS opening checklist
+OP-698 | LMS opening checklist
+OP-699 | LMS opening checklist
+OP-700 | LMS opening checklist
+`;
+
+function pageOpsManual(){return `
+  <div class="ic">
+    <div class="st">📘 Operations Manual</div>
+    <div style="max-height:300px;overflow:auto;white-space:pre-line;font-family:monospace;font-size:12px;color:var(--mu)">${megaOpsManual}</div>
+  </div>
+`;}
+
+// ══════════════════════════════════════
+// MODAL & TOAST
+// ══════════════════════════════════════
+function openModal(title,body){
+  document.getElementById('modBody').innerHTML=`<div class="mod-title">${title}<button class="mcl" onclick="closeModal()">×</button></div>${body}`;
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(){document.getElementById('modal').classList.remove('open')}
+document.getElementById('modal').onclick=function(e){if(e.target===this)closeModal()}
+
+function showToast(msg,dur=2500){
+  const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
+  setTimeout(()=>t.style.display='none',dur);
+}
+
+window.addEventListener('load',async()=>{
+  await loadInitialState();
+  translateUI();
+  lastStateHash=JSON.stringify(collectState());
+});
+window.addEventListener('beforeunload',()=>{pushStateToServer(true)});
+</script>
+</body>
+</html>
